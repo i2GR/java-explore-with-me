@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DateTimeDeserializer extends StdDeserializer<LocalDateTime>{
+public class DateTimeDeserializer extends StdDeserializer<LocalDateTime> {
 
     protected DateTimeDeserializer() {
         this(null);

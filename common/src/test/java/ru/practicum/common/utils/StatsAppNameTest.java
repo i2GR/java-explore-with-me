@@ -26,7 +26,7 @@ class StatsAppNameTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "any"})
     @NullSource
-    void fromString_whenStringInValid_thenThrows (String str) {
+    void fromString_whenStringInValid_thenThrows(String str) {
         //then
         assertThrows(BadRequestException.class, () -> StatsAppName.fromString(str));
     }
