@@ -1,7 +1,7 @@
 package ru.practicum.ewm.stats.dto;
 
 import lombok.*;
-import ru.practicum.ewm.utils.StatsAppName;
+import ru.practicum.ewm.common.utils.StatsAppName;
 
 @Builder
 @Getter

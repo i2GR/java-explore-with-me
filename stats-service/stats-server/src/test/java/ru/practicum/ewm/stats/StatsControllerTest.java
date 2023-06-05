@@ -18,8 +18,8 @@ import ru.practicum.ewm.StatsApp;
 import ru.practicum.ewm.stats.dto.EndpointHitDto;
 import ru.practicum.ewm.stats.dto.EndpointHitResponseDto;
 import ru.practicum.ewm.stats.dto.ViewStatsDto;
-import ru.practicum.ewm.utils.Constants;
-import ru.practicum.ewm.utils.StatsAppName;
+import ru.practicum.ewm.common.utils.Constants;
+import ru.practicum.ewm.common.utils.StatsAppName;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;

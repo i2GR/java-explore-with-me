@@ -3,7 +3,7 @@ package ru.practicum.common.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.junit.jupiter.api.Test;
-import ru.practicum.ewm.utils.DateTimeDeserializer;
+import ru.practicum.ewm.common.utils.DateTimeDeserializer;
 
 import java.io.IOException;
 

@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import ru.practicum.ewm.exception.BadRequestException;
-import ru.practicum.ewm.utils.StatsAppName;
+import ru.practicum.ewm.common.exception.BadRequestException;
+import ru.practicum.ewm.common.utils.StatsAppName;
 
 import java.io.IOException;
 

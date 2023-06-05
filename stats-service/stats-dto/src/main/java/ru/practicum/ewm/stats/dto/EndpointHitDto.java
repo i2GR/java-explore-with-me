@@ -2,8 +2,8 @@ package ru.practicum.ewm.stats.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import ru.practicum.ewm.utils.Constants;
-import ru.practicum.ewm.utils.StatsAppName;
+import ru.practicum.ewm.common.utils.Constants;
+import ru.practicum.ewm.common.utils.StatsAppName;
 import ru.practicum.ewm.stats.validation.JsonBodyIp;
 
 import javax.validation.constraints.NotBlank;

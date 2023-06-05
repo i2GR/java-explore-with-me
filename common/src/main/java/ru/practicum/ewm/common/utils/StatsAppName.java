@@ -1,7 +1,7 @@
-package ru.practicum.ewm.utils;
+package ru.practicum.ewm.common.utils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ru.practicum.ewm.exception.BadRequestException;
+import ru.practicum.ewm.common.exception.BadRequestException;
 
 import java.util.Map;
 import java.util.stream.Collectors;

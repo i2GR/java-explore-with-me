@@ -1,7 +1,7 @@
 package ru.practicum.ewm.stats.model;
 
 import lombok.*;
-import ru.practicum.ewm.utils.StatsAppName;
+import ru.practicum.ewm.common.utils.StatsAppName;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

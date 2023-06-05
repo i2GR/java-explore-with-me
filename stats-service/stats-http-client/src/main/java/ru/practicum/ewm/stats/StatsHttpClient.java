@@ -1,7 +1,7 @@
 package ru.practicum.ewm.stats;
 
 import org.springframework.http.ResponseEntity;
-import ru.practicum.ewm.utils.StatsAppName;
+import ru.practicum.ewm.common.utils.StatsAppName;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;

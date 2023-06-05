@@ -1,4 +1,4 @@
-package ru.practicum.ewm.exception;
+package ru.practicum.ewm.common.exception;
 
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

@@ -1,7 +1,7 @@
 package ru.practicum.ewm.stats.validation;
 
 import ru.practicum.ewm.stats.dto.EndpointHitDto;
-import ru.practicum.ewm.utils.Constants;
+import ru.practicum.ewm.common.utils.Constants;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

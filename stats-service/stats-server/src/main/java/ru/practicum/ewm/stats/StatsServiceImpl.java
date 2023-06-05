@@ -10,7 +10,7 @@ import ru.practicum.ewm.stats.dto.EndpointHitDto;
 import ru.practicum.ewm.stats.model.Stats;
 import ru.practicum.ewm.stats.model.HitDtoMapper;
 import ru.practicum.ewm.stats.model.ViewStatsDto;
-import ru.practicum.ewm.utils.Constants;
+import ru.practicum.ewm.common.utils.Constants;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -11,11 +11,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.practicum.ewm.stats.dto.EndpointHitDto;
-import static ru.practicum.ewm.utils.Constants.STATS_HIT_PATH;
-import static ru.practicum.ewm.utils.Constants.STATS_GET_PATH;
-import static ru.practicum.ewm.utils.Constants.STATS_DTO_TIMESTAMP_PATTERN;
+import static ru.practicum.ewm.common.utils.Constants.STATS_HIT_PATH;
+import static ru.practicum.ewm.common.utils.Constants.STATS_GET_PATH;
+import static ru.practicum.ewm.common.utils.Constants.STATS_DTO_TIMESTAMP_PATTERN;
 
-import ru.practicum.ewm.utils.StatsAppName;
+import ru.practicum.ewm.common.utils.StatsAppName;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;

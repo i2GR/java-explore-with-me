@@ -1,4 +1,4 @@
-package ru.practicum.ewm.exception;
+package ru.practicum.ewm.common.exception;
 
 /**
  * исключение при ошибке в http-запросе (тело или путь)

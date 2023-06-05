@@ -1,4 +1,4 @@
-package ru.practicum.ewm.utils;
+package ru.practicum.ewm.common.utils;
 
 public class Constants {
 

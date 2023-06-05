@@ -1,4 +1,4 @@
-package ru.practicum.ewm.utils;
+package ru.practicum.ewm.common.utils;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
