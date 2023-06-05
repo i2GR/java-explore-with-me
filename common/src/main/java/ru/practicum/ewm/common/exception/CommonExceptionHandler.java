@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public abstract class CommonExceptionHandler {
 
-    abstract protected Logger log();
+    public abstract Logger log();
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

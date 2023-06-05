@@ -10,7 +10,7 @@ import ru.practicum.ewm.common.exception.CommonExceptionHandler;
 public class StatsExceptionHandler extends CommonExceptionHandler {
 
     @Override
-    protected Logger log() {
+    public Logger log() {
         return log;
     }
 }
