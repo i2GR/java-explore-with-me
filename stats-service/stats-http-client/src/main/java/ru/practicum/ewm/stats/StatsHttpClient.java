@@ -17,7 +17,7 @@ public interface StatsHttpClient {
      * @param request HttpServletRequest для получения данных необходимой статистики (ip адрес, путь запроса)
      * @return DTO со статусом ответа от сервера статистики.
      */
-    ResponseEntity<Object> sendEndpointHit(StatsAppName statsAppName, HttpServletRequest request);
+    ResponseEntity<Object> sendEndpointHit(String statsAppName, HttpServletRequest request);
 
     /**
      * Получение статистики по количеству посещений <p>

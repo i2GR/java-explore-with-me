@@ -29,10 +29,10 @@ import java.util.Map;
 @Component
 public class StatsHttpClientImpl implements StatsHttpClient {
 
-    private final String START_PARAM = "start";
-    private final String END_PARAM = "end";
-    private final String URIS_PARAM = "uris";
-    private final String UNIQUE_PARAM = "unique";
+    private static final String START_PARAM = "start";
+    private static final String END_PARAM = "end";
+    private static final String URIS_PARAM = "uris";
+    private static final String UNIQUE_PARAM = "unique";
 
     private final RestTemplate rest;
 
@@ -44,9 +44,9 @@ public class StatsHttpClientImpl implements StatsHttpClient {
     }
 
     @Override
-    public ResponseEntity<Object> sendEndpointHit(StatsAppName statsAppName, HttpServletRequest request) {
+    public ResponseEntity<Object> sendEndpointHit(String appName, HttpServletRequest request) {
         EndpointHitDto dto = EndpointHitDto.builder()
-                .app(statsAppName)
+                .app(StatsAppName.fromString(appName))
                 .uri(request.getRequestURI())
                 .ip(request.getRemoteAddr())
                 .timestamp(LocalDateTime.now())
