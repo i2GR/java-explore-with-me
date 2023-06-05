@@ -1,7 +1,6 @@
 package ru.practicum.ewm.stats;
 
 import org.springframework.http.ResponseEntity;
-import ru.practicum.ewm.common.utils.StatsAppName;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -13,11 +12,11 @@ public interface StatsHttpClient {
 
     /**
      * Перенаправление информации о вызове API на сервер статистики
-     * @param statsAppName условное имя приложения
+     * @param appName условное имя приложения
      * @param request HttpServletRequest для получения данных необходимой статистики (ip адрес, путь запроса)
      * @return DTO со статусом ответа от сервера статистики.
      */
-    ResponseEntity<Object> sendEndpointHit(StatsAppName statsAppName, HttpServletRequest request);
+    ResponseEntity<Object> sendEndpointHit(String appName, HttpServletRequest request);
 
     /**
      * Получение статистики по количеству посещений <p>

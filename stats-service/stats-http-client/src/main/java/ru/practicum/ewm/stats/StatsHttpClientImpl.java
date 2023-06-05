@@ -44,9 +44,9 @@ public class StatsHttpClientImpl implements StatsHttpClient {
     }
 
     @Override
-    public ResponseEntity<Object> sendEndpointHit(StatsAppName statsAppName, HttpServletRequest request) {
+    public ResponseEntity<Object> sendEndpointHit(String appName, HttpServletRequest request) {
         EndpointHitDto dto = EndpointHitDto.builder()
-                .app(statsAppName)
+                .app(StatsAppName.fromString(appName))
                 .uri(request.getRequestURI())
                 .ip(request.getRemoteAddr())
                 .timestamp(LocalDateTime.now())

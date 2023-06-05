@@ -9,7 +9,7 @@
     </parent>
 
     <modules>
-        <module>../common</module>
+        <module>common</module>
         <module>stats-server</module>
         <module>stats-http-client</module>
         <module>stats-dto</module>
