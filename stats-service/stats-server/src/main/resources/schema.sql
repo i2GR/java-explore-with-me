@@ -10,5 +10,3 @@ CREATE TABLE stats (
     time_stamp TIMESTAMP--,
     --CONSTRAINT stats_pk PRIMARY KEY (id)
 );
---INSERT INTO public.stats (app, uri, ip, time_stamp)
---VALUES ('uri1', 'ip1', 'ip1', LOCALTIMESTAMP);

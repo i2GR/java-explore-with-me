@@ -20,7 +20,7 @@
     <logger name ="ru.practicum.ewm.stats.exception.StatsExceptionHandler" level="info">
         <appender-ref ref="ClientLog"/>
     </logger>
-    <logger name ="ru.practicum.ewm.stats.StatsHttpClient" level="info">
+    <logger name ="ru.practicum.ewm.stats.StatsHttpClientImpl" level="info">
         <appender-ref ref="ClientLog"/>
     </logger>
 </configuration>

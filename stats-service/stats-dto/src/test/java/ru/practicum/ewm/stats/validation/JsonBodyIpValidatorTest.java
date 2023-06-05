@@ -62,7 +62,7 @@ class JsonBodyIpValidatorTest {
         Set<ConstraintViolation<EndpointHitDto>> violations = validator.validate(dto);
         //then
         assertEquals(1, violations.size());
-        assertEquals("json:ip not ipv4 or ipv6", List.copyOf(violations).get(0).getMessage());
+        assertEquals("значение ip не соответствует формату ipv4 или ipv6", List.copyOf(violations).get(0).getMessage());
     }
 
     private void setupDto(String str) {
