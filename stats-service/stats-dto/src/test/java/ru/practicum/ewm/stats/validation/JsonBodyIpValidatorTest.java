@@ -55,7 +55,7 @@ class JsonBodyIpValidatorTest {
             "any"
     })
     @NullSource
-    void whenBadStringForIp_whenThrows (String str) {
+    void whenBadStringForIp_whenThrows(String str) {
         //given
         setupDto(str);
         //when
