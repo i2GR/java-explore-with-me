@@ -1,7 +1,11 @@
 package ru.practicum.ewm.stats.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import ru.practicum.ewm.common.utils.Constants;
 import ru.practicum.ewm.common.utils.StatsAppName;
 import ru.practicum.ewm.stats.validation.JsonBodyIp;
@@ -15,7 +19,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode()
+@EqualsAndHashCode
 public class EndpointHitDto {
 
     @NotNull

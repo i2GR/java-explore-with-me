@@ -21,7 +21,6 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<!--module>common</module-->
 		<module>stats-service</module>
 		<module>main-service</module>
 	</modules>
@@ -30,15 +29,6 @@
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-params</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-	</dependencies>
 
 	<build>
 		<pluginManagement>
