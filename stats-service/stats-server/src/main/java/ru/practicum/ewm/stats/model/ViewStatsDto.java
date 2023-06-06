@@ -1,6 +1,7 @@
 package ru.practicum.ewm.stats.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.AllArgsConstructor;
 import ru.practicum.ewm.common.utils.StatsAppName;
 
 @Getter

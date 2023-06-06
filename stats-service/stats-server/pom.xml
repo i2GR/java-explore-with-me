@@ -12,9 +12,6 @@
 
     <artifactId>stats-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <!--packaging>jar</packaging-->
-
-
     <name>Stats Server</name>
     <description>Сервер сервиса статистики в соответствии со спецификацией ewm-stats-service.json</description>
 
@@ -41,7 +38,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <!--optional>true</optional-->
         </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -87,18 +83,13 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!--plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.4.0</version>
-            </plugin-->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>11</source> <!-- depending on your project -->
-                    <target>11</target> <!-- depending on your project -->
+                    <source>11</source>
+                    <target>11</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId> <!-- IMPORTANT - LOMBOK BEFORE MAPSTRUCT -->

@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.List;
 
 /**
- * класс ответа на HTTP-запрос при выбрасывании исключения на Ендпойнте
+ * класс ответа на HTTP-запрос при выбрасывании исключения на Эндпойнте
  */
 @Getter
 @AllArgsConstructor

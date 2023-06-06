@@ -12,7 +12,6 @@
 
     <artifactId>stats-dto</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <!--packaging>jar</packaging-->
 
     <name>Http Stats Dto</name>
     <description>модуль с пакетом DTO сервиса статистики</description>
@@ -25,6 +24,12 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public abstract class CommonExceptionHandler {
     }
 
     /**
-     * обработка исключения валидации параметров передаваемых в ендпойнты (HTTP-код 400)
+     * обработка исключения валидации параметров передаваемых в эндпойнты (HTTP-код 400)
      * @param exception экземпляр исключения Spring ошибки валидации параметров (MethodArgumentNotValidException)
      * @return сообщение об ошибке (ResponseEntity)
      */
@@ -46,24 +45,41 @@ public abstract class CommonExceptionHandler {
     }
 
     /**
+     * обработка исключения в результате неверного ответа от сервиса статистики в http-клиенте при запросе статистики
+     * @param exception экземпляр исключения (StatsClientGetStatsException)
+     * @return сообщение об ошибке (ResponseEntity)
+     */
+    @ExceptionHandler(StatsClientException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> handleStatsClientException(StatsClientException exception) {
+        List<String> trace = listTrace(exception);
+        log().info("bad response from stats-server\n{}", trace);
+        ErrorResponse error = new ErrorResponse("bad response from stats-server", trace);
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
      * Формирование списка стек-трейса
      * @param throwable любое исключение
      * @return список
      */
     private List<String> listTrace(Throwable throwable) {
-        return Arrays.stream(throwable.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.toList());
+        return Arrays.stream(throwable.getStackTrace())
+                .map(StackTraceElement::toString)
+                .collect(Collectors.toList());
     }
 
     private String getBadArgumentsInfo(MethodArgumentNotValidException exception) {
         StringBuilder badArgumentsInfo = new StringBuilder("following errors:");
-
-        List<String> errors = new ArrayList<>();
-        errors.addAll(
-                exception.getBindingResult().getFieldErrors()
-                        .stream()
-                        .map(fe -> "validation fail: " + fe.getField() + " " + fe.getDefaultMessage())
-                        .collect(Collectors.toList()));
-        errors.forEach(e -> badArgumentsInfo.append("[").append(e).append("]"));
+        exception.getBindingResult().getFieldErrors()
+                .forEach(fe -> badArgumentsInfo
+                                .append("[validation fail: ")
+                                .append(fe.getField())
+                                .append(" ")
+                                .append(fe.getDefaultMessage())
+                                .append("]")
+                );
         return badArgumentsInfo.toString();
     }
 }

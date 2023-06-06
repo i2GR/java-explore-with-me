@@ -1,7 +1,10 @@
 package ru.practicum.ewm.stats;
 
-import org.springframework.http.ResponseEntity;
 import ru.practicum.ewm.stats.dto.EndpointHitDto;
+import ru.practicum.ewm.stats.dto.EndpointHitResponseDto;
+import ru.practicum.ewm.stats.dto.ViewStatsDto;
+
+import java.util.List;
 
 /**
  * Интерфейс сервис-слоя для обработки статистики <p>
@@ -13,7 +16,7 @@ public interface StatsService {
      * @param dto DTO статистики
      * @return ответ
      */
-    ResponseEntity<Object> postStats(EndpointHitDto dto);
+    EndpointHitResponseDto postStats(EndpointHitDto dto);
 
     /**
      * Получение статистики
@@ -24,5 +27,5 @@ public interface StatsService {
      * @return сведения о статистике: приложение, URI, число посещений
      * @implNote значения start, end, uris подлежат кодированию (java.net.URI.Encoder)
      */
-    ResponseEntity<Object> getStats(String start, String end, String[] uris, boolean fromIpUnique);
+    List<ViewStatsDto> getStats(String start, String end, String[] uris, boolean fromIpUnique);
 }

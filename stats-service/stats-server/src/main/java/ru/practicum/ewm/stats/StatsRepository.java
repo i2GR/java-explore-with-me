@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import ru.practicum.ewm.stats.model.Stats;
-import ru.practicum.ewm.stats.model.ViewStatsDto;
+import ru.practicum.ewm.stats.dto.ViewStatsDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,7 +24,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
      * @param end конец промежутка времени посещения
      * @param uris пути запроса к API приложения, по которым проводится поиск (к этим эндпойнтам обращались пользователи)
      */
-    @Query(value = "SELECT new ru.practicum.ewm.stats.model.ViewStatsDto(s.app, s.uri, COUNT(s.ip)) "
+    @Query(value = "SELECT new ru.practicum.ewm.stats.dto.ViewStatsDto(s.app, s.uri, COUNT(s.ip)) "
             + "FROM Stats AS s "
             + "WHERE s.uri IN (:uris) AND (s.timestamp BETWEEN :start AND :end) "
             + "GROUP BY s.app, s.uri, s.timestamp  "
@@ -43,7 +43,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
      * @param end конец интервала времени посещения
      * @param uris пути запроса к API приложения, по которым проводится поиск (к этим эндпойнтам обращались пользователи)
      */
-    @Query("SELECT new ru.practicum.ewm.stats.model.ViewStatsDto(s.app, s.uri, COUNT(DISTINCT s.ip)) "
+    @Query("SELECT new ru.practicum.ewm.stats.dto.ViewStatsDto(s.app, s.uri, COUNT(DISTINCT s.ip)) "
             + "FROM Stats AS s "
             + "WHERE s.uri IN (:uris) AND (s.timestamp BETWEEN :start AND :end) "
             + "GROUP BY s.app, s.uri "
@@ -61,7 +61,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
      * @param start начало промежутка времени посещения
      * @param end конец промежутка времени посещения
      */
-    @Query("SELECT new ru.practicum.ewm.stats.model.ViewStatsDto(s.app, s.uri, COUNT(DISTINCT s.ip)) "
+    @Query("SELECT new ru.practicum.ewm.stats.dto.ViewStatsDto(s.app, s.uri, COUNT(DISTINCT s.ip)) "
             + "FROM Stats AS s "
             + "WHERE (s.timestamp BETWEEN :start AND :end) "
             + "GROUP BY s.app, s.uri "
@@ -76,7 +76,7 @@ public interface StatsRepository extends JpaRepository<Stats, Long> {
      * @param start начало промежутка времени посещения
      * @param end конец промежутка времени посещения
      */
-    @Query("SELECT new ru.practicum.ewm.stats.model.ViewStatsDto(s.app, s.uri, COUNT(s.ip)) "
+    @Query("SELECT new ru.practicum.ewm.stats.dto.ViewStatsDto(s.app, s.uri, COUNT(s.ip)) "
             + "FROM Stats AS s "
             + "WHERE (s.timestamp BETWEEN :start AND :end) "
             + "GROUP BY s.app, s.uri "

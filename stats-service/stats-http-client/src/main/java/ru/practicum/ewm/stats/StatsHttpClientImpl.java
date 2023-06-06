@@ -3,6 +3,7 @@ package ru.practicum.ewm.stats;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
@@ -16,13 +17,13 @@ import static ru.practicum.ewm.common.utils.Constants.STATS_GET_PATH;
 import static ru.practicum.ewm.common.utils.Constants.STATS_DTO_TIMESTAMP_PATTERN;
 
 import ru.practicum.ewm.common.utils.StatsAppName;
+import ru.practicum.ewm.stats.dto.EndpointHitResponseDto;
+import ru.practicum.ewm.stats.dto.ViewStatsDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Slf4j
@@ -44,9 +45,9 @@ public class StatsHttpClientImpl implements StatsHttpClient {
     }
 
     @Override
-    public ResponseEntity<Object> sendEndpointHit(String appName, HttpServletRequest request) {
+    public EndpointHitResponseDto sendEndpointHit(StatsAppName statsAppName, HttpServletRequest request) {
         EndpointHitDto dto = EndpointHitDto.builder()
-                .app(StatsAppName.fromString(appName))
+                .app(statsAppName)
                 .uri(request.getRequestURI())
                 .ip(request.getRemoteAddr())
                 .timestamp(LocalDateTime.now())
@@ -54,43 +55,42 @@ public class StatsHttpClientImpl implements StatsHttpClient {
         log.info("send endpoint hit with fields app:{}, uri:{}, ip:{}, timestamp:{}",
                 dto.getApp(), dto.getUri(), dto.getIp(), dto.getTimestamp());
         HttpEntity<EndpointHitDto> requestEntity = new HttpEntity<>(dto, defaultHeaders());
-        ResponseEntity<Object> statsServerResponse;
         try {
-            statsServerResponse = rest.exchange(STATS_HIT_PATH, HttpMethod.POST, requestEntity, Object.class);
+            return rest.exchange(STATS_HIT_PATH, HttpMethod.POST, requestEntity, EndpointHitResponseDto.class).getBody();
         } catch (HttpStatusCodeException e) {
             log.warn("Error sending hit to stats-server {}", e.getMessage());
-            return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
+            return EndpointHitResponseDto.builder().build();
         }
-        return prepareStatsResponse(statsServerResponse);
     }
 
     @Override
-    public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end) {
+    public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end) {
         return getStats(start, end, null, null);
     }
 
     @Override
-    public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end, String[] uris) {
+    public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, String[] uris) {
         return getStats(start, end, uris, null);
     }
 
     @Override
-    public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end, Boolean unique) {
+    public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, Boolean unique) {
         return getStats(start, end, null, unique);
     }
 
     @Override
-    public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end, String[] uris, Boolean unique) {
-        ResponseEntity<Object> statsInfoResponse;
-        HttpEntity<EndpointHitDto> requestEntity = new HttpEntity<>(null, defaultHeaders());
+    public List<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, String[] uris, Boolean unique) {
         String query = prepareQuery(start, end, uris, unique);
         try {
-            statsInfoResponse = rest.exchange(STATS_GET_PATH + "?" + query, HttpMethod.GET, requestEntity, Object.class);
+            return rest.exchange(STATS_GET_PATH + "?" + query,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<ViewStatsDto>>(){}
+            ).getBody();
         } catch (HttpStatusCodeException e) {
-            return ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsByteArray());
+            log.warn("Error getting hit from stats-server {}", e.getMessage());
+            return List.of();
         }
-
-        return prepareStatsResponse(statsInfoResponse);
     }
 
 
@@ -99,19 +99,6 @@ public class StatsHttpClientImpl implements StatsHttpClient {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         return headers;
-    }
-
-    private ResponseEntity<Object> prepareStatsResponse(ResponseEntity<Object> response) {
-        if (response.getStatusCode().is2xxSuccessful()) {
-            log.info("stats action completed at code 2xx");
-            return response;
-        }
-
-        ResponseEntity.BodyBuilder responseBuilder = ResponseEntity.status(response.getStatusCode());
-        if (response.hasBody()) {
-            return responseBuilder.body(response.getBody());
-        }
-        return responseBuilder.build();
     }
 
     private Map<String, Object> prepareParameters(LocalDateTime start, LocalDateTime end, String[] uris, Boolean unique) {
