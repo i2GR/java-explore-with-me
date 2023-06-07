@@ -9,8 +9,10 @@ import java.util.stream.Stream;
 
 public enum StatsAppName {
     @JsonProperty("ewm-main-service")
-    EWM_MAIN_SERVICE("ewm-main-service");
+    EWM_MAIN_SERVICE("ewm-main-service"),
 
+    @JsonProperty("ewm-main-admin")
+    EWM_MAIN_ADMIN("ewm-main-admin");
 
     private final String value;
 

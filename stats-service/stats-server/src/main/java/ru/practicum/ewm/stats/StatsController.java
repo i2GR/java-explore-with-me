@@ -57,8 +57,8 @@ public class StatsController {
             @RequestParam(name = "uris", required = false) String[] uris,
             @RequestParam(name = "unique", defaultValue = "false") boolean fromIpUnique) {
         log.info("[get] stats http-request");
-        String decodedStart = URLDecoder.decode(start, StandardCharsets.UTF_8);
-        String decodedEnd = URLDecoder.decode(end, StandardCharsets.UTF_8);
-        return new ResponseEntity<>(statsService.getStats(decodedStart, decodedEnd, uris, fromIpUnique), HttpStatus.OK);
+        //String decodedStart = URLDecoder.decode(start, StandardCharsets.UTF_8);
+        //String decodedEnd = URLDecoder.decode(end, StandardCharsets.UTF_8);
+        return new ResponseEntity<>(statsService.getStats(start, end, uris, fromIpUnique), HttpStatus.OK);
     }
 }

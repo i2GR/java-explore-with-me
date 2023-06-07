@@ -84,7 +84,7 @@ class StatsControllerTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "any", "null"})
-    void postStats_whenBadJSonAppValue_thenThrowsStatus500(String str) throws Exception {
+    void postStats_whenBadJSonAppValue_thenThrowsStatus400(String str) throws Exception {
         //given
         dto = EndpointHitDto.builder().app(StatsAppName.EWM_MAIN_SERVICE)
                 .ip(testIp)
@@ -99,7 +99,7 @@ class StatsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
         //then
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().isBadRequest());
         verify(statsService, never()).postStats(any());
     }
 
@@ -129,7 +129,7 @@ class StatsControllerTest {
     void postStats_whenBadJSonTimeStampValue_thenThrowsStatus500(String str) throws Exception {
         //given
         LocalDateTime timestamp = LocalDateTime.now();
-        String formattedTime = timestamp.format(DateTimeFormatter.ofPattern(Constants.STATS_DTO_TIMESTAMP_PATTERN));
+        String formattedTime = timestamp.format(DateTimeFormatter.ofPattern(Constants.EWM_TIMESTAMP_PATTERN));
         dto = EndpointHitDto.builder().app(StatsAppName.EWM_MAIN_SERVICE)
                 .ip(testIp)
                 .uri(testPath)
@@ -143,7 +143,7 @@ class StatsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 //then
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().isBadRequest());
         verify(statsService, never()).postStats(any());
     }
 

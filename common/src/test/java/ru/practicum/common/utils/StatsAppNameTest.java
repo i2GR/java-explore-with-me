@@ -12,12 +12,14 @@ import ru.practicum.ewm.common.utils.StatsAppName;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StatsAppNameTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"ewm-main-service"})
+    @ValueSource(strings = {"ewm-main-service", "ewm-main-admin"})
     void fromString_whenValidString_thenOk(String str) {
         //then
         assertDoesNotThrow(() -> StatsAppName.fromString(str));
