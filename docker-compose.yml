@@ -18,7 +18,7 @@ services:
     volumes:
       - /var/lib/postgresql/data/
     ports:
-      - "6542:5432"
+      - "6541:5432"
     environment:
       - POSTGRES_DB=ewmstats
       - POSTGRES_USER=postgres
@@ -39,9 +39,11 @@ services:
   ewm-db:
     image: postgres:14-alpine
     container_name: ewm-db
+    volumes:
+      - /var/lib/postgresql/data/
     ports:
-      - "6541:5431"
+      - "6542:5431"
     environment:
       - POSTGRES_DB=ewmmain
-      - POSTGRES_USER=ewm_user
-      - POSTGRES_PASSWORD=ewm_pass
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123

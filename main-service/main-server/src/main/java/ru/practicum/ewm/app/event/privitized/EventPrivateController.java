@@ -37,7 +37,7 @@ public class EventPrivateController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<EventOutputFullDto> AddEventByUser(@PathVariable @Positive Long userId,
+    public ResponseEntity<EventOutputFullDto> addEventByUser(@PathVariable @Positive Long userId,
                                                              @RequestBody @Validated(value = OnCreate.class) EventInputDto dto) {
         log.info("Private API: add event {} from userId {}", dto.getTitle(), userId);
         return new ResponseEntity<>(service.addEventByUser(userId, dto), HttpStatus.CREATED);
