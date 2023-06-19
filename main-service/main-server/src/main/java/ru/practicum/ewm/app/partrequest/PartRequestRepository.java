@@ -13,7 +13,7 @@ import ru.practicum.ewm.app.event.model.Event;
 import ru.practicum.ewm.app.partrequest.model.PartRequest;
 import ru.practicum.ewm.app.partrequest.model.ConfirmedRequestCount;
 
-public interface PartRequestRepository extends JpaRepository<PartRequest, Long>{
+public interface PartRequestRepository extends JpaRepository<PartRequest, Long> {
 
     Long countByEventIdAndStatus(Long eventId, PartRequestStatus status);
 

@@ -29,7 +29,7 @@ public class CategoryPublicServiceImpl implements CategoryPublicService {
     @Override
     public List<CategoryDto> getCategoryListByConditions(Long from, Integer size) {
         log.info("Public: get Categories from {} with size {}", from, size);
-        PageRequest page = PageRequest.of((int) (from/size), size);
+        PageRequest page = PageRequest.of((int) (from / size), size);
         return categoryRepo.findAll(page).stream()
                 .map(categoryMapper::toDto)
                 .collect(Collectors.toList());

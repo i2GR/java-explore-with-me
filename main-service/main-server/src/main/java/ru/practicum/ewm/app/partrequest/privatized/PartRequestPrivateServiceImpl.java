@@ -178,8 +178,8 @@ public class PartRequestPrivateServiceImpl implements PartRequestPrivateService 
             if (newStatus == PartRequestStatus.CONFIRMED || newStatus == PartRequestStatus.REJECTED) {
                 return newStatus;
             }
-            throw new ConditionViolationException ("New request update must have status CONFIRMED or REJECTED");
-        } catch (IllegalArgumentException iae) {
+            throw new ConditionViolationException("New request update must have status CONFIRMED or REJECTED");
+        } catch (IllegalArgumentException exception) {
             throw new BadRequestException("Bad value for participation request status");
         }
     }
@@ -214,7 +214,7 @@ public class PartRequestPrivateServiceImpl implements PartRequestPrivateService 
                 .build();
     }
 
-    private void saveNewPartRequestStatus(PartRequest request, PartRequestStatus newStatus, List<PartRequestDto> dtoList){
+    private void saveNewPartRequestStatus(PartRequest request, PartRequestStatus newStatus, List<PartRequestDto> dtoList) {
         request.setStatus(newStatus);
         dtoList.add(mapper.toDto(request));
     }
