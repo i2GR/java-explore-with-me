@@ -10,6 +10,7 @@ public class NullOrSizeValidator implements ConstraintValidator<NullOrSize, Stri
 
     private Integer min;
     private Integer max;
+
     @Override
     public void initialize(NullOrSize constraint) {
         this.min = constraint.min();
@@ -20,7 +21,6 @@ public class NullOrSizeValidator implements ConstraintValidator<NullOrSize, Stri
     public boolean isValid(String str, ConstraintValidatorContext context) {
         if (str == null) return true;
         if (str.isBlank()) return false;
-        if (str.length() >= min && str.length() <= max) return true;
-        return false;
+        return str.length() >= min && str.length() <= max;
     }
 }

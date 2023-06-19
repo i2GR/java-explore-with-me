@@ -3,8 +3,8 @@ package ru.practicum.ewm.stats;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional
-        ;
+import org.springframework.transaction.annotation.Transactional;
+
 import ru.practicum.ewm.common.utils.DateTimeDeserializer;
 import ru.practicum.ewm.stats.dto.EndpointHitDto;
 import ru.practicum.ewm.stats.dto.EndpointHitResponseDto;

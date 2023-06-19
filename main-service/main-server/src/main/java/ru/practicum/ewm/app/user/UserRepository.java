@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.practicum.ewm.app.user.model.User;
 import ru.practicum.ewm.common.exception.NotFoundException;
 
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<User,Long> {
 
     List<User> findAllBy(Pageable pageable);
 

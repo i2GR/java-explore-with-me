@@ -79,7 +79,7 @@ public class Event {
     @Column (name = "part_limit")
     Long participantLimit;
 
-    @Column(name ="published")
+    @Column(name = "published")
     private LocalDateTime publishedOn;
 
     @Enumerated(value = EnumType.STRING)

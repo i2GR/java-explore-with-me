@@ -47,7 +47,7 @@ public class CompilationAdminServiceImpl implements CompilationAdminService {
     @Override
     public CompilationOutputDto updateCompilation(Long id, CompilationInputDto dto) {
         log.info("Admin Service: updating Compilation id {} title {}", id, dto.getTitle());
-        Compilation compilation =compilationRepo.findById(id)
+        Compilation compilation = compilationRepo.findById(id)
                 .orElseThrow(() -> new NotFoundException(format("Compilation with id=%d was not found", id)));
         List<Event> eventList = dto.getEvents() == null
                 ? new ArrayList<>(compilation.getEvents())

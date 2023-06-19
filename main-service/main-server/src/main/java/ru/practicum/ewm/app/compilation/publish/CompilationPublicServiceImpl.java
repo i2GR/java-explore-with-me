@@ -34,7 +34,7 @@ public class CompilationPublicServiceImpl implements CompilationPublicService {
     @Override
     public List<CompilationOutputDto> getCompilationListByConditions(Boolean pinned, Long from, Integer size) {
         log.info("Public: getting compilations from {} with size {} with pinned {}", from, size, pinned);
-        PageRequest page = PageRequest.of((int) (from/size), size);
+        PageRequest page = PageRequest.of((int) (from / size), size);
         List<Boolean> pinnedFilter = pinned == null ? List.of(true, false) : List.of(pinned);
         return compilationRepo.findAllByPinnedIn(pinnedFilter, page).stream()
                 .map(compilationMapper::toOutputDto)
