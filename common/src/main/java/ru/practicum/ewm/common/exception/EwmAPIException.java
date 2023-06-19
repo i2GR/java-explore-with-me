@@ -10,7 +10,7 @@ import ru.practicum.ewm.common.utils.ExceptionReason;
  * @implNote наследники устанавливают специфические причины (reason), моменты времени возникновения ошибки
  */
 @Getter
-public class EwmAPIException extends RuntimeException{
+public class EwmAPIException extends RuntimeException {
 
     private final ExceptionReason reason;
     private final LocalDateTime throwTimeStamp;
