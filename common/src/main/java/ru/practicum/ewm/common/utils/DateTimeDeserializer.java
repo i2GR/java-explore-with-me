@@ -73,7 +73,7 @@ public class DateTimeDeserializer extends StdDeserializer<LocalDateTime> {
                                                    String action,
                                                    boolean throwBadRequest) {
         if (lowerDateTime.plusSeconds(difInSecs).isBefore(upperDateTime)
-                || lowerDateTime.plusSeconds(difInSecs).isEqual(upperDateTime) ) {
+                || lowerDateTime.plusSeconds(difInSecs).isEqual(upperDateTime)) {
             return;
         }
         String message = format("lower time value %s is more than necessary upper time value %s for %d sec when %s",

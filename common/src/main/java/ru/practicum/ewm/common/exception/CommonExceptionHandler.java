@@ -127,9 +127,9 @@ public abstract class CommonExceptionHandler {
         exception.getBindingResult().getFieldErrors()
                 .forEach(fe -> badArgumentsInfo
                         .append(fe.getField())
-                        .append(" Error:")
+                        .append(" Error: ")
                         .append(fe.getDefaultMessage())
-                        .append( "Value: ")
+                        .append(" Value: ")
                         .append(fe.getRejectedValue())
                 );
         return badArgumentsInfo.toString();
