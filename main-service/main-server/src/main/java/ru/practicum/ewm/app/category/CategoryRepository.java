@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.practicum.ewm.app.category.model.Category;
 import ru.practicum.ewm.common.exception.NotFoundException;
 
-public interface CategoryRepository extends JpaRepository<Category, Long>{
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     default Category getCategoryOrThrowNotFound(Long id) {
         return findById(id).orElseThrow(

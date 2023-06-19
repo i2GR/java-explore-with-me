@@ -11,7 +11,7 @@ import ru.practicum.ewm.common.exception.NotFoundException;
 import ru.practicum.ewm.common.utils.EventState;
 import ru.practicum.ewm.app.event.model.Event;
 
-public interface EventRepository extends JpaRepository<Event, Long>{
+public interface EventRepository extends JpaRepository<Event, Long> {
 
     /**
      * Admin API get with filters
@@ -22,6 +22,7 @@ public interface EventRepository extends JpaRepository<Event, Long>{
                                                                                    LocalDateTime start,
                                                                                    LocalDateTime end,
                                                                                    Pageable pageable);
+
     List<Event> findAllByInitiatorIdInAndStateInAndEventDateBetween(List<Long> ids,
                                                                     List<EventState> states,
                                                                     LocalDateTime start,
