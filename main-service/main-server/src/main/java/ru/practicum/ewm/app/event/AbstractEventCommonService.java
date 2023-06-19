@@ -90,7 +90,7 @@ public abstract class AbstractEventCommonService {
      * @return Список ShortDto
      */
     protected List<EventOutputShortDto> prepareSortedShortDtoList(List<Event> events, SortingType sortingType) {
-        if (events.size()== 0) {
+        if (events.size() == 0) {
             return List.of();
         }
         Stream<EventOutputShortDto> streamShortDto = events.stream()

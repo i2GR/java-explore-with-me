@@ -38,8 +38,8 @@ import static ru.practicum.ewm.common.utils.Constants.MIN_TIME;
 import static ru.practicum.ewm.common.utils.EventState.CANCELED;
 import static ru.practicum.ewm.common.utils.EventState.PENDING;
 
-
 import ru.practicum.ewm.stats.StatsHttpClient;
+
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -129,7 +129,7 @@ public class EventPrivateServiceImpl extends AbstractEventCommonService implemen
     }
 
     private void checkUserAccessForEvent(Long userId, Event event) {
-        if(!userId.equals(event.getInitiator().getId())) {
+        if (!userId.equals(event.getInitiator().getId())) {
             throw new BadRequestException("user has not access to event");
         }
     }
