@@ -42,6 +42,7 @@ public interface EventPublicService {
                                                        long from,
                                                        int size,
                                                        HttpServletRequest request);
+
     /**
      * Получение полной информации о событии по идентификатору
      * @param eventId идентификатор события
