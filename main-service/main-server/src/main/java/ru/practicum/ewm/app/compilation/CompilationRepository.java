@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.practicum.ewm.app.compilation.model.Compilation;
 import ru.practicum.ewm.common.exception.NotFoundException;
 
-public interface CompilationRepository extends JpaRepository<Compilation, Long>{
+public interface CompilationRepository extends JpaRepository<Compilation, Long> {
 
     List<Compilation> findAllByPinnedIn(List<Boolean> pinned, Pageable pageable);
 
