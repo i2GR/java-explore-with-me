@@ -9,26 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import ru.practicum.ewm.MainApp;
 import ru.practicum.ewm.app.TestUtil;
 import ru.practicum.ewm.app.dto.UserCommonFullDto;
 import ru.practicum.ewm.app.user.model.User;
-import ru.practicum.ewm.stats.StatsHttpClient;
 
-@ContextConfiguration(classes = MainApp.class)
 @WebMvcTest(controllers = UserAdminController.class)
 class UserAdminControllerTest {
 
     private static final String PATH = "/admin/users";
 
-    @MockBean
-    StatsHttpClient statsHttpClient;
 
     @MockBean
     UserAdminService userAdminService;
