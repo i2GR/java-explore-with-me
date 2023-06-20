@@ -76,7 +76,6 @@ public class EventPrivateServiceImpl extends AbstractEventCommonService implemen
     @Override
     public List<EventOutputShortDto> getAllEventsByUser(Long userId, Long from, Integer size) {
         log.info("Private Service: getting events of user {} from {} size {}", userId, from, size);
-        //sendEventEndpointHitToStats(log, request);
         Pageable pageable = PageRequest.of((int) (from / size), size, Sort.by("eventDate").descending());
         List<Event> eventList = getEventRepo().findAllByInitiatorId(userId, pageable);
         assignConfirmedPartRequests(eventList);
@@ -104,7 +103,6 @@ public class EventPrivateServiceImpl extends AbstractEventCommonService implemen
         checkAndUpdateEventState(event, dto);
         Category category = checkAndUpdateCategory(dto, event);
 
-        //TODO CHECK
         LocalDateTime persistedEventDate = event.getEventDate();
         LocalDateTime newEventDate = parseOrSetDefaultTime(dto.getEventDate(), persistedEventDate, "eventDate");
         if (newEventDate != persistedEventDate) {

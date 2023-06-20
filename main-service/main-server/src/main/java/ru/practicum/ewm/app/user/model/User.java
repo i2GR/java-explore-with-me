@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"id"}, callSuper = false)
 @Entity
-@Table(name = "users_ewm")
+@Table(name = "users")
 public class User {
 
     @Id

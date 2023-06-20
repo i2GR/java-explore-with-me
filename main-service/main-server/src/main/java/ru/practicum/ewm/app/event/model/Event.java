@@ -40,7 +40,7 @@ import javax.persistence.PreUpdate;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"id"}, callSuper = false)
 @Entity
-@Table(name = "events_ewm")
+@Table(name = "events")
 public class Event {
 
     @Id

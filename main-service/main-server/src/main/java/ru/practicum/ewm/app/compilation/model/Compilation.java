@@ -27,7 +27,7 @@ import ru.practicum.ewm.app.event.model.Event;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "compilations_ewm")
+@Table(name = "compilations")
 public class Compilation {
 
     @Id
@@ -36,7 +36,7 @@ public class Compilation {
 
     @ManyToMany
     @JoinTable(
-            name = "compilations_events_ewm",
+            name = "compilations_events",
             joinColumns = @JoinColumn(name = "compilation_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Set<Event> events;

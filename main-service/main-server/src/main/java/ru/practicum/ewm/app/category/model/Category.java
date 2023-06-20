@@ -24,7 +24,7 @@ import javax.persistence.Column;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"id"}, callSuper = false)
 @Entity
-@Table(name = "categories_ewm")
+@Table(name = "categories")
 public class Category {
 
     @Id

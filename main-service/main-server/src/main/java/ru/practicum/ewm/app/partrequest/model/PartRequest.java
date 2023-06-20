@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -31,7 +33,7 @@ import ru.practicum.ewm.common.utils.PartRequestStatus;
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"id"}, callSuper = false)
 @Entity
-@Table(name = "requests_ewm")
+@Table(name = "requests")
 public class PartRequest {
 
     @Id
@@ -53,5 +55,6 @@ public class PartRequest {
     @JoinColumn(name = "requester_id")
     private User requester;
 
+    @Enumerated(value = EnumType.STRING)
     private PartRequestStatus status;
 }

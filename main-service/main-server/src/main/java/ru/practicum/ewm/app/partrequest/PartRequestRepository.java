@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import ru.practicum.ewm.common.exception.NotFoundException;
-import ru.practicum.ewm.common.utils.PartRequestStatus;
 import ru.practicum.ewm.app.event.model.Event;
 import ru.practicum.ewm.app.partrequest.model.PartRequest;
 import ru.practicum.ewm.app.partrequest.model.ConfirmedRequestCount;
+import ru.practicum.ewm.common.utils.PartRequestStatus;
 
 public interface PartRequestRepository extends JpaRepository<PartRequest, Long> {
 
@@ -21,7 +21,7 @@ public interface PartRequestRepository extends JpaRepository<PartRequest, Long> 
 
     @Query(value = "SELECT new ru.practicum.ewm.app.partrequest.model.ConfirmedRequestCount(r.event, COUNT(r.status)) "
             + "FROM PartRequest AS r "
-            + "WHERE r.event IN (:events) AND r.status = ru.practicum.ewm.common.utils.PartRequestStatus.CONFIRMED "
+            + "WHERE r.event IN (:events) AND r.status = 'CONFIRMED' "
             + "GROUP BY r.event "
             + "ORDER BY COUNT(r.status) DESC")
     List<ConfirmedRequestCount> getConfirmedRequestCount(@Param("events") List<Event> events);
