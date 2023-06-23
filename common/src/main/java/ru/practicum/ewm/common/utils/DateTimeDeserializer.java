@@ -42,10 +42,9 @@ public class DateTimeDeserializer extends StdDeserializer<LocalDateTime> {
      * Декодирование и парсинг даты-времени и получение параметров времени
      * @param str строковое представление даты-времени, полученное с эндпойнта
      * @param timeDef заранее определенное значение даты-времени, используемое в случае ошибок парсинга
-     * @param name название для поля времени для логирования, например "start", "end", "eventDate" для логирования (соответственно начало-конец диапазона фильтрации)
      * @return значение даты времени LocalDateTime
      */
-    public LocalDateTime parseOrSetDefaultTime(String str, LocalDateTime timeDef, String name) {
+    public LocalDateTime parseOrSetDefaultTime(String str, LocalDateTime timeDef) {
         if (str == null) {
             return timeDef;
         }
@@ -55,6 +54,7 @@ public class DateTimeDeserializer extends StdDeserializer<LocalDateTime> {
                     DATE_TIME_FORMATTER
             );
         } catch (DateTimeParseException e) {
+
             return timeDef;
         }
     }
@@ -65,7 +65,8 @@ public class DateTimeDeserializer extends StdDeserializer<LocalDateTime> {
      * @param lowerDateTime опорный момент времени, относительно которого проверяют время события
      * @param difInSecs запас по времени (выражен в секундах), который должно иметь событие относительно опорного момента времени
      * @param action строка с указанием для логов, в рамках какой операции проводится проверка
-     * @implNote upperDateTime получают из DTO события
+     * @param throwBadRequest указатель выбрасывать исключение для HTTP-статуса BAD REQUEST (400)
+     * @implNote - upperDateTime получают из DTO события<p>
      */
     public void checkPermittedTimeDatesRelation(LocalDateTime upperDateTime,
                                                    LocalDateTime lowerDateTime,

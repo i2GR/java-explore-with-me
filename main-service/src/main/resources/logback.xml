@@ -1,20 +1,20 @@
 <configuration>
-    <appender name="StatsOut" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="MainOut" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -- %msg%n</pattern>
         </encoder>
     </appender>
-    <appender name="StatsLog" class="ch.qos.logback.core.FileAppender">
-        <file>stats-service/stats-server/logs/StatsLog.log</file>
+    <appender name="MainLog" class="ch.qos.logback.core.FileAppender">
+        <file>main-service/logs/mainlog.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -- %msg%n</pattern>
         </encoder>
         <append>false</append>
     </appender>
     <root level="info">
-        <appender-ref ref="StatsOut"/>
+        <appender-ref ref="MainOut"/>
     </root>
-    <logger name ="ru.practicum.ewm.stats" level="info">
-        <appender-ref ref="StatsLog"/>
+    <logger name ="ru.practicum.ewm.app" level="info">
+        <appender-ref ref="MainLog"/>
     </logger>
 </configuration>

@@ -43,8 +43,8 @@ public class StatsServiceImpl implements StatsService {
     @Override
     public List<ViewStatsDto> getStats(String strStart, String strEnd, String[] uris, boolean fromIpUnique) {
         log.info("service.getStats between {} and {} on {} unique {}", strStart, strEnd, Arrays.toString(uris), fromIpUnique);
-        LocalDateTime start = timeDeserializer.parseOrSetDefaultTime(strStart, MIN_TIME, "");
-        LocalDateTime end = timeDeserializer.parseOrSetDefaultTime(strEnd, MIN_TIME.plusYears(100), "");
+        LocalDateTime start = timeDeserializer.parseOrSetDefaultTime(strStart, MIN_TIME);
+        LocalDateTime end = timeDeserializer.parseOrSetDefaultTime(strEnd, MIN_TIME.plusYears(100));
         timeDeserializer.checkPermittedTimeDatesRelation(end, start, 1, CHECK_TIME_FILTER, true);
         List<ViewStatsDto> statsList;
         if (uris == null) {

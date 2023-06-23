@@ -27,7 +27,7 @@ services:
       - POSTGRES_PASSWORD=123
 
   ewm-service:
-    build: ./main-service/main-server
+    build: ./main-service
     image: ewm-main-service
     container_name: ewm-main-service
     ports:
