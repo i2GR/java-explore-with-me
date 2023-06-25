@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import ru.practicum.ewm.stats.dto.EndpointHitDto;
 import static ru.practicum.ewm.common.utils.Constants.STATS_HIT_PATH;
 import static ru.practicum.ewm.common.utils.Constants.STATS_GET_PATH;
-import static ru.practicum.ewm.common.utils.Constants.STATS_DTO_TIMESTAMP_PATTERN;
+import static ru.practicum.ewm.common.utils.Constants.EWM_TIMESTAMP_PATTERN;
 
 import ru.practicum.ewm.common.utils.StatsAppName;
 import ru.practicum.ewm.stats.dto.EndpointHitResponseDto;
@@ -103,8 +103,8 @@ public class StatsHttpClientImpl implements StatsHttpClient {
 
     private Map<String, Object> prepareParameters(LocalDateTime start, LocalDateTime end, String[] uris, Boolean unique) {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put(START_PARAM, start.format(DateTimeFormatter.ofPattern(STATS_DTO_TIMESTAMP_PATTERN)));
-        parameters.put(END_PARAM, end.format(DateTimeFormatter.ofPattern(STATS_DTO_TIMESTAMP_PATTERN)));
+        parameters.put(START_PARAM, start.format(DateTimeFormatter.ofPattern(EWM_TIMESTAMP_PATTERN)));
+        parameters.put(END_PARAM, end.format(DateTimeFormatter.ofPattern(EWM_TIMESTAMP_PATTERN)));
         if (uris != null) parameters.put(URIS_PARAM, String.join(",", uris));
         if (unique != null) parameters.put(UNIQUE_PARAM, unique);
         return parameters;

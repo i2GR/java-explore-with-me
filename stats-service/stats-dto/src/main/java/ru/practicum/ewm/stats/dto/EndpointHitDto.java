@@ -33,6 +33,6 @@ public class EndpointHitDto {
 
     @NotNull
     @PastOrPresent
-    @JsonFormat(pattern = Constants.STATS_DTO_TIMESTAMP_PATTERN)
+    @JsonFormat(pattern = Constants.EWM_TIMESTAMP_PATTERN)
     private LocalDateTime timestamp;
 }

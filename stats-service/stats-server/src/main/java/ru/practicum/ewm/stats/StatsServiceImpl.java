@@ -4,17 +4,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import ru.practicum.ewm.common.utils.DateTimeDeserializer;
 import ru.practicum.ewm.stats.dto.EndpointHitDto;
 import ru.practicum.ewm.stats.dto.EndpointHitResponseDto;
 import ru.practicum.ewm.stats.model.Stats;
 import ru.practicum.ewm.stats.model.HitDtoMapper;
 import ru.practicum.ewm.stats.dto.ViewStatsDto;
-import ru.practicum.ewm.common.utils.Constants;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+
+import static ru.practicum.ewm.common.utils.Constants.CHECK_TIME_FILTER;
+import static ru.practicum.ewm.common.utils.Constants.MIN_TIME;
 
 @Slf4j
 @Service
@@ -25,6 +28,8 @@ public class StatsServiceImpl implements StatsService {
     private final HitDtoMapper statsMapper;
 
     private final StatsRepository statsRepository;
+
+    private final DateTimeDeserializer timeDeserializer;
 
 
     @Override
@@ -38,8 +43,9 @@ public class StatsServiceImpl implements StatsService {
     @Override
     public List<ViewStatsDto> getStats(String strStart, String strEnd, String[] uris, boolean fromIpUnique) {
         log.info("service.getStats between {} and {} on {} unique {}", strStart, strEnd, Arrays.toString(uris), fromIpUnique);
-        LocalDateTime start = LocalDateTime.parse(strStart, DateTimeFormatter.ofPattern(Constants.STATS_DTO_TIMESTAMP_PATTERN));
-        LocalDateTime end = LocalDateTime.parse(strEnd, DateTimeFormatter.ofPattern(Constants.STATS_DTO_TIMESTAMP_PATTERN));
+        LocalDateTime start = timeDeserializer.parseOrSetDefaultTime(strStart, MIN_TIME);
+        LocalDateTime end = timeDeserializer.parseOrSetDefaultTime(strEnd, MIN_TIME.plusYears(100));
+        timeDeserializer.checkPermittedTimeDatesRelation(end, start, 1, CHECK_TIME_FILTER, true);
         List<ViewStatsDto> statsList;
         if (uris == null) {
             log.info("selecting w/o uris param by unique ip: {}", fromIpUnique);

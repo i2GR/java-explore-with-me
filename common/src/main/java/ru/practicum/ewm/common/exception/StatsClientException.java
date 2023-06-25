@@ -1,8 +1,7 @@
 package ru.practicum.ewm.common.exception;
 
 /**
- * исключение при ошибке в запросе http-клиента к сервису статистики<p>
- * ТРЕБУЕТСЯ уточнить требования в ТЗ этапа 2 диплома (возможно разделить) на два исключения для POST /hit GET/stats эндпойнтов
+ * Исключение при ошибке в запросе http-клиента к сервису статистики<p>
  * выбрасывается http-клиентом
  */
 public class StatsClientException extends RuntimeException {

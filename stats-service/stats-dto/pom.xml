@@ -13,7 +13,7 @@
     <artifactId>stats-dto</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>Http Stats Dto</name>
+    <name>Stats Dto</name>
     <description>модуль с пакетом DTO сервиса статистики</description>
 
     <properties>

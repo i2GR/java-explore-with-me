@@ -1,5 +1,5 @@
 <configuration>
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="StatsOut" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -- %msg%n</pattern>
         </encoder>
@@ -12,15 +12,9 @@
         <append>false</append>
     </appender>
     <root level="info">
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="StatsOut"/>
     </root>
-    <logger name ="ru.practicum.ewm.stats.exception.StatsExceptionHandler" level="info">
-        <appender-ref ref="StatsLog"/>
-    </logger>
-    <logger name ="ru.practicum.ewm.stats.StatsController" level="info">
-        <appender-ref ref="StatsLog"/>
-    </logger>
-    <logger name ="ru.practicum.ewm.stats.StatsService" level="info">
+    <logger name ="ru.practicum.ewm.stats" level="info">
         <appender-ref ref="StatsLog"/>
     </logger>
 </configuration>

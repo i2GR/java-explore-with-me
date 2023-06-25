@@ -1,0 +1,20 @@
+<configuration>
+    <appender name="MainOut" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -- %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="MainLog" class="ch.qos.logback.core.FileAppender">
+        <file>main-service/logs/mainlog.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -- %msg%n</pattern>
+        </encoder>
+        <append>false</append>
+    </appender>
+    <root level="info">
+        <appender-ref ref="MainOut"/>
+    </root>
+    <logger name ="ru.practicum.ewm.app" level="info">
+        <appender-ref ref="MainLog"/>
+    </logger>
+</configuration>
