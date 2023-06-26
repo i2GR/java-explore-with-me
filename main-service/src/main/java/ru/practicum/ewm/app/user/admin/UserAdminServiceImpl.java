@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ru.practicum.ewm.common.exception.ConditionViolationException;
 import ru.practicum.ewm.common.exception.NotFoundException;
-import ru.practicum.ewm.app.dto.UserCommonFullDto;
+import ru.practicum.ewm.app.dto.user.UserCommonFullDto;
 import ru.practicum.ewm.app.user.UserRepository;
 import ru.practicum.ewm.app.user.model.User;
 import ru.practicum.ewm.app.user.model.UserDtoMapper;

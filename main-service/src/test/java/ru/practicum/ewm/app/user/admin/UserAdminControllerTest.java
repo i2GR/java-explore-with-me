@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import ru.practicum.ewm.app.TestUtil;
-import ru.practicum.ewm.app.dto.UserCommonFullDto;
+import ru.practicum.ewm.app.dto.user.UserCommonFullDto;
 import ru.practicum.ewm.app.user.model.User;
 
 @WebMvcTest(controllers = UserAdminController.class)

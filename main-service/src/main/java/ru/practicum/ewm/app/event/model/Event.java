@@ -38,7 +38,7 @@ import javax.persistence.PreUpdate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"id"}, callSuper = false)
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "events")
 public class Event {

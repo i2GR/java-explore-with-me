@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS compilations_events;
 DROP TABLE IF EXISTS compilations;
 DROP TABLE IF EXISTS requests;
 DROP TABLE IF EXISTS events;
+DROP TABLE IF EXISTS subscriptions;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS categories;
 
@@ -10,6 +11,7 @@ CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     email varchar(254) UNIQUE NOT NULL,
     name varchar(250) UNIQUE NOT NULL,
+    subscriptions_allowed BOOLEAN NOT NULL,
     CONSTRAINT chk_users_email_min CHECK(length(email) >= 6),
     CONSTRAINT chk_users_name_min CHECK(length(name) >= 2)
 );
@@ -67,6 +69,17 @@ CREATE TABLE compilations_events (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     event_id BIGINT,
     compilation_id BIGINT,
-    constraint fk_compilations_events_to_events FOREIGN KEY(event_id) REFERENCES events(id) ON DELETE CASCADE,
-    constraint fk_compilations_events_to_compilations FOREIGN KEY(compilation_id) REFERENCES compilations(id) ON DELETE CASCADE
+    CONSTRAINT fk_compilations_events_to_events FOREIGN KEY(event_id) REFERENCES events(id) ON DELETE CASCADE,
+    CONSTRAINT fk_compilations_events_to_compilations FOREIGN KEY(compilation_id) REFERENCES compilations(id) ON DELETE CASCADE
+);
+
+CREATE TABLE subscriptions (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  follower_id BIGINT,
+  leader_id BIGINT,
+  last_view TIMESTAMP (3) WITHOUT TIME ZONE,
+  CONSTRAINT fk_subscriptions_follower_to_users FOREIGN KEY (follower_id) REFERENCES users(id),
+  CONSTRAINT fk_subscriptions_leader_to_users FOREIGN KEY (leader_id) REFERENCES users(id),
+  CONSTRAINT fk_subscriptions_unq UNIQUE (follower_id, leader_id),
+  CONSTRAINT subs_chk CHECK (follower_id <> leader_id)
 );

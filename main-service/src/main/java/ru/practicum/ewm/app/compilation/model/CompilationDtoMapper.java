@@ -8,8 +8,8 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-import ru.practicum.ewm.app.dto.CompilationOutputDto;
-import ru.practicum.ewm.app.dto.CompilationInputDto;
+import ru.practicum.ewm.app.dto.compilation.CompilationOutputDto;
+import ru.practicum.ewm.app.dto.compilation.CompilationInputDto;
 import ru.practicum.ewm.app.event.model.Event;
 import ru.practicum.ewm.app.event.model.EventDtoMapper;
 

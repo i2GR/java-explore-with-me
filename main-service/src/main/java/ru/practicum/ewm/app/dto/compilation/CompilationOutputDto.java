@@ -1,7 +1,9 @@
-package ru.practicum.ewm.app.dto;
+package ru.practicum.ewm.app.dto.compilation;
 
 import lombok.Builder;
 import lombok.Getter;
+import ru.practicum.ewm.app.dto.event.EventOutputShortDto;
+
 import java.util.List;
 
 /**

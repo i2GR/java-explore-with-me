@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-import ru.practicum.ewm.app.dto.CategoryDto;
+import ru.practicum.ewm.app.dto.category.CategoryDto;
 
 /**
  * Mapstruct-маппер интерфейс DTO  <--> Категории событий (Compilation)

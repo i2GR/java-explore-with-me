@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ru.practicum.ewm.app.dto.PartRequestDto;
-import ru.practicum.ewm.app.dto.PartRequestStatusUpdateRequest;
-import ru.practicum.ewm.app.dto.PartRequestStatusUpdateResult;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestDto;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestStatusUpdateRequest;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestStatusUpdateResult;
 
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/users/{userId}")
+@RequestMapping(path = "/users/{userId}/")
 @Validated
 public class PartRequestPrivateController {
 

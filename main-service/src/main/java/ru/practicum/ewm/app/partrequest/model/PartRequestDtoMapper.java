@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
-import ru.practicum.ewm.app.dto.PartRequestDto;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestDto;
 
 /**
  * Mapstruct-маппер интерфейс DTO  <--> запрос на участие в событии (PartRequest)

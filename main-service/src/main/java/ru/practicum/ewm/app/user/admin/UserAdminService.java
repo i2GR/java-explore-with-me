@@ -2,7 +2,7 @@ package ru.practicum.ewm.app.user.admin;
 
 import java.util.List;
 
-import ru.practicum.ewm.app.dto.UserCommonFullDto;
+import ru.practicum.ewm.app.dto.user.UserCommonFullDto;
 
 /**
  * Интерфейс сервис-слоя функционала администрирования пользователей
