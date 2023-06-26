@@ -1,8 +1,10 @@
-package ru.practicum.ewm.app.dto;
+package ru.practicum.ewm.app.dto.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
+import ru.practicum.ewm.app.dto.user.UserOutputShortDto;
+import ru.practicum.ewm.app.dto.category.CategoryDto;
 import ru.practicum.ewm.common.utils.Constants;
 import ru.practicum.ewm.common.utils.EventState;
 

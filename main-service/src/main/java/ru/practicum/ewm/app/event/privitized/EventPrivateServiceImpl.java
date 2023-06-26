@@ -2,6 +2,8 @@ package ru.practicum.ewm.app.event.privitized;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import static java.lang.String.format;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +22,9 @@ import ru.practicum.ewm.common.utils.PartRequestStatus;
 
 import ru.practicum.ewm.app.category.CategoryRepository;
 import ru.practicum.ewm.app.category.model.Category;
-import ru.practicum.ewm.app.dto.EventOutputFullDto;
-import ru.practicum.ewm.app.dto.EventInputDto;
-import ru.practicum.ewm.app.dto.EventOutputShortDto;
+import ru.practicum.ewm.app.dto.event.EventOutputFullDto;
+import ru.practicum.ewm.app.dto.event.EventInputDto;
+import ru.practicum.ewm.app.dto.event.EventOutputShortDto;
 import ru.practicum.ewm.app.event.AbstractEventCommonService;
 import ru.practicum.ewm.app.event.EventRepository;
 import ru.practicum.ewm.app.event.model.Event;
@@ -113,6 +115,17 @@ public class EventPrivateServiceImpl extends AbstractEventCommonService implemen
 
         log.info("event id {} updated", eventId);
         return getEventMapper().toFullDto(event);
+    }
+
+    @Override
+    public List<EventOutputShortDto> getAllEventsOfSubscribedLeaders(Long followerId, Long from, Integer size) {
+        log.info("Private Service: getting events by followed users by follower user id {}", followerId);
+        userRepo.getUserOrThrowNotFound(followerId);
+        Pageable page = PageRequest.of((int) (from / size), size, Sort.by("event.eventDate").descending());
+        return getEventRepo().getEventsByFollower(followerId, page)
+                .stream()
+                .map(getEventMapper()::toShortDto)
+                .collect(Collectors.toList());
     }
 
     private void checkAndSetMissedDefaults(EventInputDto dto) {

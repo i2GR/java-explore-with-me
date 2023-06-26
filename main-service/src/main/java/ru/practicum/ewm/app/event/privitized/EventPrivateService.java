@@ -2,9 +2,9 @@ package ru.practicum.ewm.app.event.privitized;
 
 import java.util.List;
 
-import ru.practicum.ewm.app.dto.EventInputDto;
-import ru.practicum.ewm.app.dto.EventOutputFullDto;
-import ru.practicum.ewm.app.dto.EventOutputShortDto;
+import ru.practicum.ewm.app.dto.event.EventInputDto;
+import ru.practicum.ewm.app.dto.event.EventOutputFullDto;
+import ru.practicum.ewm.app.dto.event.EventOutputShortDto;
 
 /**
  * Интерфейс сервис-слоя функционала относительно событий (приватный API)
@@ -46,4 +46,20 @@ public interface EventPrivateService {
      * @return измененное событие
      */
     EventOutputFullDto updateEvent(Long userId, Long eventId, EventInputDto dto);
+
+    /**
+     * Получение текущим пользователем-подписчиком списка событий по всем пользователям, на которые есть подписка <p>
+     *
+     * @param followerId идентификатор пользователя-подписчика
+     * @param from       параметр пагинации - индекс первого элемента (нумерация начинается с 0)
+     * @param size       параметр пагинации - количество элементов для отображения
+     * @return список всех событий от пользователей, на которых есть подписка измененное событие<p>
+     * В случае, если по заданным фильтрам не найдено ни одного события, возвращает пустой список<p>
+     * @implNote должен быть получен список актуальных опубликованных событий:<p>
+     * - не менее чем за два часа от текущего времени<p>
+     * - опубликованные<p>
+     * - доступные для участия в них<p>
+     */
+    public List<EventOutputShortDto> getAllEventsOfSubscribedLeaders(Long followerId, Long from, Integer size);
+
 }

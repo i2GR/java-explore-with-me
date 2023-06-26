@@ -1,6 +1,6 @@
 package ru.practicum.ewm.app.category.admin;
 
-import ru.practicum.ewm.app.dto.CategoryDto;
+import ru.practicum.ewm.app.dto.category.CategoryDto;
 
 /**
  * Интерфейс сервис-слоя функционала администрирования категориями событий (Admin API)

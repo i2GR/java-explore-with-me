@@ -2,9 +2,9 @@ package ru.practicum.ewm.app.partrequest.privatized;
 
 import java.util.List;
 
-import ru.practicum.ewm.app.dto.PartRequestStatusUpdateRequest;
-import ru.practicum.ewm.app.dto.PartRequestStatusUpdateResult;
-import ru.practicum.ewm.app.dto.PartRequestDto;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestStatusUpdateRequest;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestStatusUpdateResult;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestDto;
 
 /**
  * Сервис-слой для работы с запросами на участие текущего пользователя

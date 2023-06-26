@@ -2,7 +2,7 @@ package ru.practicum.ewm.app.category.publish;
 
 import java.util.List;
 
-import ru.practicum.ewm.app.dto.CategoryDto;
+import ru.practicum.ewm.app.dto.category.CategoryDto;
 
 /**
  * Интерфейс сервис-слоя публичного функционала работы с категориями событий (Admin API)
