@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 /**
@@ -35,4 +36,12 @@ public class User {
     private String email;
 
     private String name;
+
+    @Column(name = "subscriptions_allowed")
+    private Boolean subscriptionsAllowed;
+
+    @PrePersist
+    void setSubscriptionsAllowed() {
+        if (subscriptionsAllowed == null) setSubscriptionsAllowed(false);
+    }
 }

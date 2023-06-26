@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import ru.practicum.ewm.app.dto.EventInputDto;
-import ru.practicum.ewm.app.dto.EventOutputFullDto;
+import ru.practicum.ewm.app.dto.event.EventInputDto;
+import ru.practicum.ewm.app.dto.event.EventOutputFullDto;
 import ru.practicum.ewm.common.utils.EventState;
 import ru.practicum.ewm.common.validation.OnUpdate;
 

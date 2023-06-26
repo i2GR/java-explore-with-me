@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ru.practicum.ewm.app.category.CategoryRepository;
 import ru.practicum.ewm.app.category.model.CategoryDtoMapper;
-import ru.practicum.ewm.app.dto.CategoryDto;
+import ru.practicum.ewm.app.dto.category.CategoryDto;
 
 @Slf4j
 @Service

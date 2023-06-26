@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import ru.practicum.ewm.app.dto.CompilationOutputDto;
-import ru.practicum.ewm.app.dto.CompilationInputDto;
+import ru.practicum.ewm.app.dto.compilation.CompilationOutputDto;
+import ru.practicum.ewm.app.dto.compilation.CompilationInputDto;
 import ru.practicum.ewm.common.validation.OnCreate;
 import ru.practicum.ewm.common.validation.OnUpdate;
 

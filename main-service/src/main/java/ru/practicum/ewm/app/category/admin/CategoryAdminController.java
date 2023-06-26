@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.validation.constraints.Positive;
 
-import ru.practicum.ewm.app.dto.CategoryDto;
+import ru.practicum.ewm.app.dto.category.CategoryDto;
 import ru.practicum.ewm.common.validation.OnCreate;
 import ru.practicum.ewm.common.validation.OnUpdate;
 

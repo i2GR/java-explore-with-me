@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.app.compilation.CompilationRepository;
 import ru.practicum.ewm.app.compilation.model.CompilationDtoMapper;
-import ru.practicum.ewm.app.dto.CompilationOutputDto;
+import ru.practicum.ewm.app.dto.compilation.CompilationOutputDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

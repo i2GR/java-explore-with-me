@@ -1,7 +1,7 @@
 package ru.practicum.ewm.app.compilation.admin;
 
-import ru.practicum.ewm.app.dto.CompilationOutputDto;
-import ru.practicum.ewm.app.dto.CompilationInputDto;
+import ru.practicum.ewm.app.dto.compilation.CompilationOutputDto;
+import ru.practicum.ewm.app.dto.compilation.CompilationInputDto;
 
 /**
  * Интерфейс сервис-слоя функционала администрирования подборками событий (Admin API)
