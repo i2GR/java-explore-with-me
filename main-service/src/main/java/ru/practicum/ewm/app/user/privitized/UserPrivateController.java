@@ -5,20 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.ewm.app.dto.user.SubscriptionCountedUserDto;
 import ru.practicum.ewm.app.dto.user.UserCommonFullDto;
-import ru.practicum.ewm.app.user.admin.UserAdminService;
-import ru.practicum.ewm.common.validation.OnCreate;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
@@ -33,23 +27,32 @@ public class UserPrivateController {
 
     private final UserPrivateService userPrivateService;
 
-    @GetMapping(path = "/{userId}")
-    public ResponseEntity<UserCommonFullDto> getUser(@PathVariable(name = "userId") Long userId) {
+    @GetMapping(path = "/{userId}/info/{anotherUserId}")
+    public ResponseEntity<SubscriptionCountedUserDto> getUser(
+            @PathVariable(name = "userId") Long userId,
+            @PathVariable(name = "anotherUserId") Long anotherUserId) {
         log.info("Private API (feature): get user by id {}", userId);
-        return new ResponseEntity<>(userPrivateService.getUser(userId), HttpStatus.OK);
+        return new ResponseEntity<>(userPrivateService.getUser(userId, anotherUserId), HttpStatus.OK);
     }
 
-    @GetMapping
+    /**
+     * Получение сортированного или несортированного списка всех пользователей с подписками<p>
+     * Только зарегистрированный пользователь
+     */
+    @GetMapping(path = "/{userId}/leaders")
     public ResponseEntity<List<SubscriptionCountedUserDto>> getUserListByConditions(
+            @PathVariable(name = "userId") Long userId,
             @RequestParam(name = "ids", required = false) Long[] ids,
-            @RequestParam(name = "popular", defaultValue = "false") boolean popular,
             @RequestParam(name = "from", defaultValue = "0") @PositiveOrZero Long from,
             @RequestParam(name = "size", defaultValue = "10") @Positive Integer size) {
         log.info("Private API (feature) :get users of ids {} from {} with size {}", ids, from, size);
-        return new ResponseEntity<>(userPrivateService.getUserListByConditions(ids, popular, from, size), HttpStatus.OK);
+        return new ResponseEntity<>(userPrivateService.getUserListByConditions(userId, ids, from, size), HttpStatus.OK);
     }
 
-    @PatchMapping("/{userId}/submode/{subjectId}")
+    /**
+     * Разрешение или запрещение самим пользователем подписываться на себя
+     */
+    @PatchMapping("/{userId}/subscriptions/{subjectId}/set")
     public ResponseEntity<UserCommonFullDto> changeSubscriptionMode(
             @PathVariable(name = "userId") Long userId,
             @PathVariable(name = "subjectId") Long subjectId,

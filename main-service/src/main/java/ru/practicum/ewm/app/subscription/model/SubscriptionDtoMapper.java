@@ -11,5 +11,5 @@ import ru.practicum.ewm.app.dto.subscription.SubscriptionOutputDto;
         componentModel = "spring")
 public interface SubscriptionDtoMapper {
 
-    SubscriptionOutputDto toDto(Subscription subscription);
+    SubscriptionOutputDto toShortDto(Subscription subscription);
 }

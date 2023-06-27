@@ -1,0 +1,2865 @@
+{
+	"info": {
+		"_postman_id": "4e4864e4-8a5e-48cc-9ff3-f764278322b0",
+		"name": "Test Explore With Me - Feature Subscription (чистая БД)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Pre requests: Add Users (empty DB)",
+			"item": [
+				{
+					"name": "Добавление поль-ля id = 1 (чистая БД)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" to be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test user 'email'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData.email, '\"email\" to be \"user1@host.dom\"').to.eql('user1@host.dom');\r",
+									"});\r",
+									"pm.test(\"Test user 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData.name, '\"name\" to be \"name1\"').to.eql('name1');\r",
+									"});\r",
+									"pm.test(\"Test 'subscription mode'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('subscriptionsAllowed');\r",
+									"    pm.expect(jsonData.subscriptionsAllowed, '\"subscriptionsAllowed\" to be \"false\"').to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name1\",\r\n    \"email\": \"user1@host.dom\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление поль-ля id = 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" to be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test user 'email'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData.email, '\"email\" to be \"user2@host.dom\"').to.eql('user2@host.dom');\r",
+									"});\r",
+									"pm.test(\"Test user 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData.name, '\"name\" to be \"name2\"').to.eql('name2');\r",
+									"});\r",
+									"pm.test(\"Test user 'subscription mode'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('subscriptionsAllowed');\r",
+									"    pm.expect(jsonData.subscriptionsAllowed, '\"subscriptionsAllowed\" to be \"false\"').to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name2\",\r\n    \"email\": \"user2@host.dom\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление поль-ля id = 3 (Leader1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" to be 3').to.eql(3);\r",
+									"});\r",
+									"pm.test(\"Test user 'email'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData.email, '\"email\" to be \"leader1@host.dom\"').to.eql('leader1@host.dom');\r",
+									"});\r",
+									"pm.test(\"Test user 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData.name, '\"name\" to be \"leader1\"').to.eql('leader1');\r",
+									"});\r",
+									"pm.test(\"Test user 'subscription mode'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('subscriptionsAllowed');\r",
+									"    pm.expect(jsonData.subscriptionsAllowed, '\"subscriptionsAllowed\" to be \"false\"').to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"leader1\",\r\n    \"email\": \"leader1@host.dom\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление поль-ля id = 4 (leader2)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" to be 4').to.eql(4);\r",
+									"});\r",
+									"pm.test(\"Test user 'email'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData.email, '\"email\" to be \"leader2@host.dom\"').to.eql('leader2@host.dom');\r",
+									"});\r",
+									"pm.test(\"Test user 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData.name, '\"name\" to be \"leader2\"').to.eql('leader2');\r",
+									"});\r",
+									"pm.test(\"Test user 'subscription mode'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('subscriptionsAllowed');\r",
+									"    pm.expect(jsonData.subscriptionsAllowed, '\"subscriptionsAllowed\" to be \"false\"').to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"leader2\",\r\n    \"email\": \"leader2@host.dom\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление поль-ля id = 5 (leader3)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" to be 5').to.eql(5);\r",
+									"});\r",
+									"pm.test(\"Test user 'email'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData.email, '\"email\" to be \"leader3@host.dom\"').to.eql('leader3@host.dom');\r",
+									"});\r",
+									"pm.test(\"Test user 'name'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData.name, '\"name\" to be \"leader3\"').to.eql('leader3');\r",
+									"});\r",
+									"pm.test(\"Test user 'subscription mode'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('subscriptionsAllowed');\r",
+									"    pm.expect(jsonData.subscriptionsAllowed, '\"subscriptionsAllowed\" to be \"false\"').to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"leader3\",\r\n    \"email\": \"leader3@host.dom\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pre-requests: Add Events",
+			"item": [
+				{
+					"name": "Добавление категрии (чистая БД)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"event category\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/categories",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление события 1 поль-м 3 (leader1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featLeaderId\", 3)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"event 1\",\r\n    \"annotation\": \"event by leader 1 (user id 3)\",\r\n    \"description\": \"test event description\",\r\n    \"eventDate\": \"2025-07-07 12:00:00\",\r\n    \"category\": 1,\r\n    \"location\": {\r\n        \"lat\": 55.755864,\r\n        \"lon\": 37.617698\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featLeaderId}}/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featLeaderId}}",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление события 2 поль-м 4 (leader2)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featLeaderId\", 4)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"event 2\",\r\n    \"annotation\": \"event by leader 2 (user id 4)\",\r\n    \"description\": \"test event description\",\r\n    \"eventDate\": \"2026-07-07 12:00:00\",\r\n    \"category\": 1,\r\n    \"location\": {\r\n        \"lat\": 55.755864,\r\n        \"lon\": 37.617698\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featLeaderId}}/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featLeaderId}}",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление события 3 поль-м 4 (leader2)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featLeaderId\", 4)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"event 3\",\r\n    \"annotation\": \"event by leader 3 (user id 4)\",\r\n    \"description\": \"test event description\",\r\n    \"eventDate\": \"2027-07-07 12:00:00\",\r\n    \"category\": 1,\r\n    \"location\": {\r\n        \"lat\": 55.755864,\r\n        \"lon\": 37.617698\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featLeaderId}}/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featLeaderId}}",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление события 4 поль-м 5 (leader3)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featLeaderId\", 5)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"event 4\",\r\n    \"annotation\": \"event by leader 5 (user id 4)\",\r\n    \"description\": \"test event description\",\r\n    \"eventDate\": \"2028-07-07 12:00:00\",\r\n    \"category\": 1,\r\n    \"location\": {\r\n        \"lat\": 55.755864,\r\n        \"lon\": 37.617698\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featLeaderId}}/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featLeaderId}}",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление события 5 поль-м 5 (leader3)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featLeaderId\", 5)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"event 5\",\r\n    \"annotation\": \"event by leader 5 (user id 4)\",\r\n    \"description\": \"test event description\",\r\n    \"eventDate\": \"2028-07-07 12:00:00\",\r\n    \"category\": 1,\r\n    \"location\": {\r\n        \"lat\": 55.755864,\r\n        \"lon\": 37.617698\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featLeaderId}}/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featLeaderId}}",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление события 6 поль-м 5 (leader3)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featLeaderId\", 5)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"event 6\",\r\n    \"annotation\": \"event by leader 5 (user id 4)\",\r\n    \"description\": \"test event description\",\r\n    \"eventDate\": \"2029-07-07 12:00:00\",\r\n    \"category\": 1,\r\n    \"location\": {\r\n        \"lat\": 55.755864,\r\n        \"lon\": 37.617698\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featLeaderId}}/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featLeaderId}}",
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Change Subscription Mode for leaders",
+			"item": [
+				{
+					"name": "Разрешить подписки поль-ля 3 (leader1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" to be {userId}').to.eql(pm.collectionVariables.get(\"featSubjectId\"));\r",
+									"});\r",
+									"pm.test(\"Test user 'subscription mode'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('subscriptionsAllowed');\r",
+									"    pm.expect(jsonData.subscriptionsAllowed, '\"subscriptionsAllowed\" to be \"true\"').to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featUserId\", 3)\r",
+									"pm.collectionVariables.set(\"featSubjectId\", 3)\r",
+									"pm.request.addQueryParams(\"status=true\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featUserId}}/subscriptions/{{featSubjectId}}/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featUserId}}",
+								"subscriptions",
+								"{{featSubjectId}}",
+								"set"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Разрешить подписки поль-ля 4 (leader2)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" to be {userId}').to.eql(pm.collectionVariables.get(\"featSubjectId\"));\r",
+									"});\r",
+									"pm.test(\"Test user 'subscription mode'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('subscriptionsAllowed');\r",
+									"    pm.expect(jsonData.subscriptionsAllowed, '\"subscriptionsAllowed\" to be \"true\"').to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featUserId\", 4)\r",
+									"pm.collectionVariables.set(\"featSubjectId\", 4)\r",
+									"pm.request.addQueryParams(\"status=true\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featUserId}}/subscriptions/{{featSubjectId}}/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featUserId}}",
+								"subscriptions",
+								"{{featSubjectId}}",
+								"set"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Разрешить подписки поль-ля 5 (leader3)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" to be {userId}').to.eql(pm.collectionVariables.get(\"featSubjectId\"));\r",
+									"});\r",
+									"pm.test(\"Test user 'subscription mode'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('subscriptionsAllowed');\r",
+									"    pm.expect(jsonData.subscriptionsAllowed, '\"subscriptionsAllowed\" to be \"true\"').to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featUserId\", 5)\r",
+									"pm.collectionVariables.set(\"featSubjectId\", 5)\r",
+									"pm.request.addQueryParams(\"status=true\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featUserId}}/subscriptions/{{featSubjectId}}/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featUserId}}",
+								"subscriptions",
+								"{{featSubjectId}}",
+								"set"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Неправильный запрос разешения подписки поль-ля 3 (leader1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featUserId\", 1)\r",
+									"pm.collectionVariables.set(\"featSubjectId\", 3)\r",
+									"pm.request.addQueryParams(\"status=true\")"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featUserId}}/subscriptions/{{featSubjectId}}/set",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featUserId}}",
+								"subscriptions",
+								"{{featSubjectId}}",
+								"set"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users subscribe to leaders",
+			"item": [
+				{
+					"name": "Добавление подписки поль-м 1 на поль-ля 3 (leader1)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 and json data\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: subscription has fields id, follower, leader\", function () {\r",
+									"pm.expect(jsonData).to.have.property('id');\r",
+									"pm.expect(jsonData).to.have.property('follower');\r",
+									"pm.expect(jsonData).to.have.property('leader');\r",
+									"});\r",
+									"pm.test(\"Test: follower 'id'\", function () {\r",
+									"    pm.expect(jsonData.follower.id, '\"follower id\" to be {featFollowerId}').to.eql(pm.collectionVariables.get(\"featFollowerId\"));\r",
+									"});\r",
+									"pm.test(\"Test: leader 'id'\", function () {\r",
+									"    pm.expect(jsonData.leader.id, '\"leader id\" to be {featLeaderId}').to.eql(pm.collectionVariables.get(\"featLeaderId\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 3)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление подписки поль-м 1 на поль-ля 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 and json data\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 4)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление подписки поль-м 1 на поль-ля 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 and json data\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 5)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление подписки поль-м 2 на поль-ля 4 (leader2)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 and json data\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: subscription has fields id, follower, leader\", function () {\r",
+									"pm.expect(jsonData).to.have.property('id');\r",
+									"pm.expect(jsonData).to.have.property('follower');\r",
+									"pm.expect(jsonData).to.have.property('leader');\r",
+									"});\r",
+									"pm.test(\"Test: follower 'id'\", function () {\r",
+									"    pm.expect(jsonData.follower.id, '\"follower id\" to be {featFollowerId}').to.eql(pm.collectionVariables.get(\"featFollowerId\"));\r",
+									"});\r",
+									"pm.test(\"Test: leader 'id'\", function () {\r",
+									"    pm.expect(jsonData.leader.id, '\"leader id\" to be {featLeaderId}').to.eql(pm.collectionVariables.get(\"featLeaderId\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 2)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 4)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление подписки поль-м 2 на поль-ля 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 and json data\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 2)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 5)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление подписки поль-м 3 на поль-ля 5 (leader3)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 and json data\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: subscription has fields id, follower, leader\", function () {\r",
+									"pm.expect(jsonData).to.have.property('id');\r",
+									"pm.expect(jsonData).to.have.property('follower');\r",
+									"pm.expect(jsonData).to.have.property('leader');\r",
+									"});\r",
+									"pm.test(\"Test: follower 'id'\", function () {\r",
+									"    pm.expect(jsonData.follower.id, '\"follower id\" to be {featFollowerId}').to.eql(pm.collectionVariables.get(\"featFollowerId\"));\r",
+									"});\r",
+									"pm.test(\"Test: leader 'id'\", function () {\r",
+									"    pm.expect(jsonData.leader.id, '\"leader id\" to be {featLeaderId}').to.eql(pm.collectionVariables.get(\"featLeaderId\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 3)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 5)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление подписки поль-м 3 на поль-ля 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 and json data\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 3)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 4)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Подписки пользователя 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test 200 and has json data\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"const target = pm.response.json()[0];\r",
+									"\r",
+									"pm.test(\"Test: Subscription array size should have size 3\", function () {\r",
+									"    pm.expect(array.length).to.equal(3);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Подписки пользователя 3 до удаления",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 3)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test 200 and has json data\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"const target = pm.response.json()[0];\r",
+									"\r",
+									"pm.test(\"Test: Subscription array size should have size 2\", function () {\r",
+									"    pm.expect(array.length).to.equal(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление подписки поль-м 3 на поль-ля 4 (id = 7)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 3)\r",
+									"pm.collectionVariables.set(\"featSubscriptionId\", 7)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions/{{featSubscriptionId}}/cancel",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions",
+								"{{featSubscriptionId}}",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление удаленной подписки id = 7 поль-м 3 на поль-ля 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 3)\r",
+									"pm.collectionVariables.set(\"featSubscriptionId\", 7)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions/{{featSubscriptionId}}/cancel",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions",
+								"{{featSubscriptionId}}",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Подписки пользователя 3 после удаления",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 3)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 5)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Test 200 and has json data\", function () {\r",
+									"    pm.response.to.be.ok;    \r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"const target = pm.response.json()[0];\r",
+									"\r",
+									"pm.test(\"Test: Subscription array size should have size 1\", function () {\r",
+									"    pm.expect(array.length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test: subscription has fields id, follower, leader\", function () {\r",
+									"pm.expect(target).to.have.property('id');\r",
+									"pm.expect(target).to.have.property('follower');\r",
+									"pm.expect(target).to.have.property('leader');\r",
+									"});\r",
+									"pm.test(\"Test: follower 'id'\", function () {\r",
+									"    pm.expect(target.follower.id, '\"follower id\" to be {featFollowerId}').to.eql(pm.collectionVariables.get(\"featFollowerId\"));\r",
+									"});\r",
+									"pm.test(\"Test: leader 'id'\", function () {\r",
+									"    pm.expect(target.leader.id, '\"leader id\" to be {featLeaderId}').to.eql(pm.collectionVariables.get(\"featLeaderId\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get Subscriptions",
+			"item": [
+				{
+					"name": "Запрос информации о пользователе потенциальным фолловером",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 3)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: user has fields user, ciunt\", function () {\r",
+									"pm.expect(jsonData).to.have.property('user');\r",
+									"pm.expect(jsonData).to.have.property('subscriptionCount');\r",
+									"});\r",
+									"pm.test(\"Test: user 'id'\", function () {\r",
+									"    pm.expect(jsonData.user.id, '\"user id\" to be {featLeaderId}').to.eql(pm.collectionVariables.get(\"featLeaderId\"));\r",
+									"});\r",
+									"pm.test(\"Test: user 'id'\", function () {\r",
+									"    pm.expect(jsonData.subscriptionCount, '\"user subscriptionCount\" to be 1').to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/info/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"info",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос информации от несуществующего пользователя",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 999)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 3)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/info/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"info",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос информации о несуществующем пользователе",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 999)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/info/{{featLeaderId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"info",
+								"{{featLeaderId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос информации о всех пользователях с подписчиками",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: Events array size should have size 3\", function () {\r",
+									"    pm.expect(array.length).to.equal(3);\r",
+									"});\r",
+									"\r",
+									"const target1 = pm.response.json()[0];\r",
+									"const target2 = pm.response.json()[1];\r",
+									"const target3 = pm.response.json()[2];\r",
+									"\r",
+									"pm.test(\"Test: Users received and have field 'subscriptionCount'\", function () {\r",
+									"pm.expect(target1).to.have.property('user');\r",
+									"pm.expect(target1).to.have.property('subscriptionCount');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test: Top user'\", function () {\r",
+									"    pm.expect(target1.user.id, '\"user id\" to be 5').to.eql(5);\r",
+									"});\r",
+									"pm.test(\"Test: Middle user'\", function () {\r",
+									"    pm.expect(target2.user.id, '\"user id\" to be 4').to.eql(4);\r",
+									"});\r",
+									"pm.test(\"Test: Low user'\", function () {\r",
+									"    pm.expect(target3.user.id, '\"user id\" to be 3').to.eql(3);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/leaders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"leaders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос информации о пользователях с подписчиками по идентификаторам",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)\r",
+									"pm.request.addQueryParams(\"ids=1,5\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: Events array size should have size 1\", function () {\r",
+									"    pm.expect(array.length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"const target1 = pm.response.json()[0];\r",
+									"\r",
+									"pm.test(\"Test: Users received and have field 'subscriptionCount'\", function () {\r",
+									"pm.expect(target1).to.have.property('user');\r",
+									"pm.expect(target1).to.have.property('subscriptionCount');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test: Only user with subscribers'\", function () {\r",
+									"    pm.expect(target1.user.id, '\"user id\" to be 5').to.eql(5);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/leaders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"leaders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Запрос информации о подписках пользователя",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: Subscriptions array size should have size 3\", function () {\r",
+									"    pm.expect(array.length).to.equal(3);\r",
+									"});\r",
+									"\r",
+									"const target1 = pm.response.json()[0];\r",
+									"const target2 = pm.response.json()[1];\r",
+									"const target3 = pm.response.json()[2];\r",
+									"\r",
+									"pm.test(\"Test: subscriptions received and have fields 'id', 'follower' 'leader'\", function () {\r",
+									"pm.expect(target1).to.have.property('id');\r",
+									"pm.expect(target1).to.have.property('follower');pm.expect(target1).to.have.property('leader');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test: first subscriber leader1'\", function () {\r",
+									"    pm.expect(target1.leader.id, '\"user id\" to be 3').to.eql(3);\r",
+									"});\r",
+									"pm.test(\"Test: first subscriber leader2'\", function () {\r",
+									"    pm.expect(target2.leader.id, '\"user id\" to be 4').to.eql(4);\r",
+									"});\r",
+									"pm.test(\"Test: first subscriber leader3'\", function () {\r",
+									"    pm.expect(target3.leader.id, '\"user id\" to be 5').to.eql(5);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get events by Subscriptors",
+			"item": [
+				{
+					"name": "Get Available Events from Follower 1 (Empty)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: Events array size should have size 0\", function () {\r",
+									"    pm.expect(array.length).to.equal(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/events/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"events",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin: publish event 1 (by  leader 1 / user 3)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featEventId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateAction\": \"PUBLISH_EVENT\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/{{featEventId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								"{{featEventId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Events from Follower 1 (Event 1)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)\r",
+									"pm.collectionVariables.set(\"featEventId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"const target = pm.response.json()[0];\r",
+									"\r",
+									"pm.test(\"Test: Events array size should have size 1\", function () {\r",
+									"    pm.expect(array.length).to.equal(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test: event has fields\", function () {\r",
+									"pm.expect(target).to.have.property('id');\r",
+									"pm.expect(target).to.have.property('title');\r",
+									"pm.expect(target).to.have.property('annotation');\r",
+									"pm.expect(target).to.have.property('description');\r",
+									"pm.expect(target).to.have.property('eventDate');\r",
+									"pm.expect(target).to.have.property('category');\r",
+									"pm.expect(target).to.have.property('initiator');\r",
+									"pm.expect(target).to.have.property('paid');\r",
+									"pm.expect(target).to.have.property('views');\r",
+									"pm.expect(target).to.have.property('confirmedRequests');\r",
+									"});\r",
+									"pm.test(\"Test: event 'id'\", function () {\r",
+									"    pm.expect(target.id, '\"event id\" to be {featEventId}').to.eql(pm.collectionVariables.get(\"featEventId\"));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/events/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"events",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin: publish event 2 (by  leader 2 / user 4)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featEventId\", 2)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateAction\": \"PUBLISH_EVENT\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/{{featEventId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								"{{featEventId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Events from Follower 1 (Events 1 and 2)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: Events array size should have size 3\", function () {\r",
+									"    pm.expect(array.length).to.equal(2);\r",
+									"});\r",
+									"\r",
+									"const target1 = pm.response.json()[0];\r",
+									"const target2 = pm.response.json()[1];\r",
+									"\r",
+									"pm.test(\"Test: event has fields\", function () {\r",
+									"pm.expect(target1).to.have.property('id');\r",
+									"pm.expect(target1).to.have.property('title');\r",
+									"pm.expect(target1).to.have.property('annotation');\r",
+									"pm.expect(target1).to.have.property('description');\r",
+									"pm.expect(target1).to.have.property('eventDate');\r",
+									"pm.expect(target1).to.have.property('category');\r",
+									"pm.expect(target1).to.have.property('initiator');\r",
+									"pm.expect(target1).to.have.property('paid');\r",
+									"pm.expect(target1).to.have.property('views');\r",
+									"pm.expect(target1).to.have.property('confirmedRequests');\r",
+									"});\r",
+									"pm.test(\"Test: Nearest event (top)'id'\", function () {\r",
+									"    pm.expect(target1.id, '\"event id\" to be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test: Middle-time-frame event (middle) 'id'\", function () {\r",
+									"    pm.expect(target2.id, '\"event id\" to be 2').to.eql(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/events/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"events",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin: publish event 3 (by  leader 2 / user 4)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featEventId\", 3)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stateAction\": \"PUBLISH_EVENT\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/{{featEventId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								"{{featEventId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Events from Follower 1 (Events 1 ... 3)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: Events array size should have size 3\", function () {\r",
+									"    pm.expect(array.length).to.equal(3);\r",
+									"});\r",
+									"\r",
+									"const target1 = pm.response.json()[0];\r",
+									"const target2 = pm.response.json()[1];\r",
+									"const target3 = pm.response.json()[2];\r",
+									"\r",
+									"pm.test(\"Test: event has fields\", function () {\r",
+									"pm.expect(target1).to.have.property('id');\r",
+									"pm.expect(target1).to.have.property('title');\r",
+									"pm.expect(target1).to.have.property('annotation');\r",
+									"pm.expect(target1).to.have.property('description');\r",
+									"pm.expect(target1).to.have.property('eventDate');\r",
+									"pm.expect(target1).to.have.property('category');\r",
+									"pm.expect(target1).to.have.property('initiator');\r",
+									"pm.expect(target1).to.have.property('paid');\r",
+									"pm.expect(target1).to.have.property('views');\r",
+									"pm.expect(target1).to.have.property('confirmedRequests');\r",
+									"});\r",
+									"pm.test(\"Test: Nearest event (top)'id'\", function () {\r",
+									"    pm.expect(target1.id, '\"event id\" to be 1').to.be.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test: Middle-time-frame event (middle) 'id'\", function () {\r",
+									"    pm.expect(target2.id, '\"event id\" to be 2').to.be.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test: Farest event (bottom) 'id'\", function () {\r",
+									"    pm.expect(target3.id, '\"event id\" to be 3').to.be.eql(3);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/events/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"events",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Available Event 1 from Follower 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)\r",
+									"pm.collectionVariables.set(\"featLeaderId\", 3)\r",
+									"pm.collectionVariables.set(\"featEventId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: event has fields\", function () {\r",
+									"pm.expect(jsonData).to.have.property('id');\r",
+									"pm.expect(jsonData).to.have.property('title');\r",
+									"pm.expect(jsonData).to.have.property('annotation');\r",
+									"pm.expect(jsonData).to.have.property('description');\r",
+									"pm.expect(jsonData).to.have.property('eventDate');\r",
+									"pm.expect(jsonData).to.have.property('category');\r",
+									"pm.expect(jsonData).to.have.property('initiator');\r",
+									"pm.expect(jsonData).to.have.property('paid');\r",
+									"pm.expect(jsonData).to.have.property('views');\r",
+									"pm.expect(jsonData).to.have.property('confirmedRequests');\r",
+									"});\r",
+									"pm.test(\"Test: event  'id'\", function () {\r",
+									"    pm.expect(jsonData.id, '\"event id\" to be 1').to.eql(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/events/subscriptions/{{featLeaderId}}/{{featEventId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"events",
+								"subscriptions",
+								"{{featLeaderId}}",
+								"{{featEventId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Upd Available Events from Follower 1 (Events 1 ... 3)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"featFollowerId\", 1)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 and json data\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"const array = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Test: Events array size should have size 3\", function () {\r",
+									"    pm.expect(array.length).to.equal(3);\r",
+									"});\r",
+									"\r",
+									"const target1 = pm.response.json()[0];\r",
+									"const target2 = pm.response.json()[1];\r",
+									"const target3 = pm.response.json()[2];\r",
+									"\r",
+									"pm.test(\"Test: event has fields\", function () {\r",
+									"pm.expect(target1).to.have.property('id');\r",
+									"pm.expect(target1).to.have.property('title');\r",
+									"pm.expect(target1).to.have.property('annotation');\r",
+									"pm.expect(target1).to.have.property('description');\r",
+									"pm.expect(target1).to.have.property('eventDate');\r",
+									"pm.expect(target1).to.have.property('category');\r",
+									"pm.expect(target1).to.have.property('initiator');\r",
+									"pm.expect(target1).to.have.property('paid');\r",
+									"pm.expect(target1).to.have.property('views');\r",
+									"pm.expect(target1).to.have.property('confirmedRequests');\r",
+									"});\r",
+									"pm.test(\"Test: Nearest event (top)'id'\", function () {\r",
+									"    pm.expect(target1.id, '\"event id\" to be 1').to.be.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test: Middle-time-frame event (middle) 'id'\", function () {\r",
+									"    pm.expect(target2.id, '\"event id\" to be 2').to.be.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test: Farest event (bottom) 'id'\", function () {\r",
+									"    pm.expect(target3.id, '\"event id\" to be 3').to.be.eql(3);\r",
+									"});\r",
+									"pm.test(\"Test: newEvent changed\", function () {\r",
+									"    pm.expect(target1.newEvent, '\"event id 1\" to have newEvent false').to.be.false;\r",
+									"    pm.expect(target2.newEvent, '\"event id 2\" to have newEvent true').to.be.true;\r",
+									"    pm.expect(target3.newEvent, '\"event id 3\" to have newEvent true').to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/{{featFollowerId}}/events/subscriptions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"{{featFollowerId}}",
+								"events",
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"API = class {",
+					"    constructor(postman, verbose = false, baseUrl = \"http://localhost:8080\") {",
+					"        this.baseUrl = baseUrl;",
+					"        this.pm = postman;",
+					"        this._verbose = verbose;",
+					"    }",
+					"",
+					"    async addUser(user, verbose=null) {",
+					"        return this.post(\"/admin/users\", user, \"Ошибка при добавлении нового пользователя: \", verbose);",
+					"    }",
+					"",
+					"    async addCategory(category, verbose=null) {",
+					"        return this.post(\"/admin/categories\", category, \"Ошибка при добавлении новой категории: \", verbose);",
+					"    }",
+					"",
+					"    async addEvent(userId, event, verbose=null) {",
+					"        return this.post(\"/users/\" + userId + \"/events\", event, \"Ошибка при добавлении нового события: \", verbose);",
+					"    }",
+					"",
+					"    async addCompilation(compilation, verbose=null) {",
+					"        return this.post(\"/admin/compilations\", compilation, \"Ошибка при добавлении новой подборки: \", verbose);",
+					"    }",
+					"",
+					"    async publishParticipationRequest(eventId, userId, verbose=null) {",
+					"        return this.post('/users/' + userId + '/requests?eventId=' + eventId, null, \"Ошибка при добавлении нового запроса на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async publishEvent(eventId, verbose=null) {",
+					"        return this.patch('/admin/events/' + eventId, {stateAction: \"PUBLISH_EVENT\"}, \"Ошибка при публикации события\", verbose);",
+					"    }",
+					"    ",
+					"    async rejectEvent(eventId, verbose=null) {",
+					"        return this.patch('/admin/events/' + eventId, {stateAction: \"REJECT_EVENT\"}, \"Ошибка при отмене события\", verbose);",
+					"    }",
+					"",
+					"    async acceptParticipationRequest(eventId, userId, reqId, verbose=null) {",
+					"        return this.patch('/users/' + userId + '/events/' + eventId + '/requests/', {requestIds:[reqId], status: \"CONFIRMED\"}, \"Ошибка при принятии заявки на участие в событии\", verbose);",
+					"    }",
+					"",
+					"    async findCategory(catId, verbose=null) {",
+					"        return this.get('/categories/' + catId, null, \"Ошибка при поиске категории по id\", verbose);",
+					"    }",
+					"",
+					"    async findCompilation(compId, verbose=null) {",
+					"        return this.get('/compilations/' + compId, null, \"Ошибка при поиске подборки по id\", verbose);",
+					"    }",
+					"",
+					"    async findEvent(eventId, verbose=null) {",
+					"        return this.get('/events/' + eventId, null, \"Ошибка при поиске события по id\", verbose);",
+					"    }",
+					"",
+					"    async findUser(userId, verbose=null) {",
+					"        return this.get('/admin/users?ids=' + userId, null, \"Ошибка при поиске пользователя по id\", verbose);",
+					"    }",
+					"",
+					"    async post(path, body, errorText = \"Ошибка при выполнении post-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"POST\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async patch(path, body = null, errorText = \"Ошибка при выполнении patch-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"PATCH\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async get(path, body = null, errorText = \"Ошибка при выполнении get-запроса: \", verbose=null) {",
+					"        return this.sendRequest(\"GET\", path, body, errorText, verbose);",
+					"    }",
+					"",
+					"    async sendRequest(method, path, body=null, errorText = \"Ошибка при выполнении запроса: \", verbose=null) {",
+					"        return new Promise((resolve, reject) => {",
+					"            verbose = verbose == null ? this._verbose : verbose;",
+					"",
+					"            const request = {",
+					"                url: this.baseUrl + path,",
+					"                method: method,",
+					"                body: body == null ? \"\" : JSON.stringify(body),",
+					"                header: { \"Content-Type\": \"application/json\" },",
+					"            };",
+					"",
+					"            if(verbose) {",
+					"                console.log(\"Отправляю запрос: \", request);",
+					"            }",
+					"",
+					"            try {",
+					"                this.pm.sendRequest(request, (error, response) => {",
+					"                    if(error || (response.code >= 400 && response.code <= 599)) {",
+					"                        let err = error ? error : JSON.stringify(response.json());",
+					"                        console.error(\"При выполнении запроса к серверу возникла ошика.\\n\", err,",
+					"                             \"\\nДля отладки проблемы повторите такой же запрос к вашей программе \" + ",
+					"                             \"на локальном компьютере. Данные запроса:\\n\", JSON.stringify(request));",
+					"",
+					"                        reject(new Error(errorText + err));",
+					"                    }",
+					"",
+					"                    if(verbose) {",
+					"                        console.log(\"Результат обработки запроса: код состояния - \", response.code, \", тело: \", response.json());",
+					"                    }",
+					"",
+					"                    resolve(response.json());",
+					"                });",
+					"            } catch(err) {",
+					"                if(verbose) {",
+					"                    console.error(errorText, err);",
+					"                }",
+					"                return Promise.reject(err);",
+					"            }",
+					"        });",
+					"    }",
+					"};",
+					"",
+					"RandomUtils = class {",
+					"    constructor() {}",
+					"",
+					"    getUser() {",
+					"        return {",
+					"            name: pm.variables.replaceIn('{{$randomFullName}}'),",
+					"            email: pm.variables.replaceIn('{{$randomEmail}}')",
+					"        };",
+					"    }",
+					"",
+					"    getCategory() {",
+					"        return {",
+					"            name: pm.variables.replaceIn('{{$randomWord}}') + Math.floor(Math.random() * 100).toString()",
+					"        };",
+					"    }",
+					"",
+					"    getEvent(categoryId) {",
+					"        return {",
+					"            annotation: pm.variables.replaceIn('{{$randomLoremParagraph}}'),",
+					"            category: categoryId,",
+					"            description: pm.variables.replaceIn('{{$randomLoremParagraphs}}'),",
+					"            eventDate: this.getFutureDateTime(),",
+					"            location: {",
+					"                lat: parseFloat(pm.variables.replaceIn('{{$randomLatitude}}')),",
+					"                lon: parseFloat(pm.variables.replaceIn('{{$randomLongitude}}')),",
+					"            },",
+					"            paid: pm.variables.replaceIn('{{$randomBoolean}}'),",
+					"            participantLimit: pm.variables.replaceIn('{{$randomInt}}'),",
+					"            requestModeration: pm.variables.replaceIn('{{$randomBoolean}}'),",
+					"            title: pm.variables.replaceIn('{{$randomLoremSentence}}'),",
+					"        }",
+					"    }",
+					"",
+					"    getCompilation(...eventIds) {",
+					"        return {",
+					"            title: pm.variables.replaceIn('{{$randomLoremSentence}}').slice(0, 50),",
+					"            pinned: pm.variables.replaceIn('{{$randomBoolean}}'),",
+					"            events: eventIds",
+					"        };",
+					"    }",
+					"",
+					"",
+					"    getFutureDateTime(hourShift = 5, minuteShift=0, yearShift=0) {",
+					"        let moment = require('moment');",
+					"",
+					"        let m = moment();",
+					"        m.add(hourShift, 'hour');",
+					"        m.add(minuteShift, 'minute');",
+					"        m.add(yearShift, 'year');",
+					"",
+					"        return m.format('YYYY-MM-DD HH:mm:ss');",
+					"    }",
+					"",
+					"    getWord(length = 1) {",
+					"        let result = '';",
+					"        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';",
+					"        const charactersLength = characters.length;",
+					"        let counter = 0;",
+					"        while (counter < length) {",
+					"            result += characters.charAt(Math.floor(Math.random() * charactersLength));",
+					"            counter += 1;",
+					"        }",
+					"        return result;",
+					"    }",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "usersCount",
+			"value": 1,
+			"type": "number"
+		},
+		{
+			"key": "catid",
+			"value": 1,
+			"type": "number"
+		},
+		{
+			"key": "request_body",
+			"value": ""
+		},
+		{
+			"key": "mail",
+			"value": ""
+		},
+		{
+			"key": "response",
+			"value": ""
+		},
+		{
+			"key": "uid",
+			"value": 1,
+			"type": "number"
+		},
+		{
+			"key": "catname",
+			"value": ""
+		},
+		{
+			"key": "eid",
+			"value": 1,
+			"type": "number"
+		},
+		{
+			"key": "compid",
+			"value": 1,
+			"type": "number"
+		},
+		{
+			"key": "toCheck",
+			"value": ""
+		},
+		{
+			"key": "newDataToSet",
+			"value": ""
+		},
+		{
+			"key": "uid1",
+			"value": ""
+		},
+		{
+			"key": "reqid",
+			"value": 1,
+			"type": "number"
+		},
+		{
+			"key": "catId",
+			"value": ""
+		},
+		{
+			"key": "confirmedRequests",
+			"value": ""
+		},
+		{
+			"key": "responseArr",
+			"value": ""
+		},
+		{
+			"key": "source1",
+			"value": ""
+		},
+		{
+			"key": "source2",
+			"value": ""
+		},
+		{
+			"key": "fromId",
+			"value": "0"
+		},
+		{
+			"key": "source",
+			"value": ""
+		},
+		{
+			"key": "featSubjectId",
+			"value": ":subjectId"
+		},
+		{
+			"key": "featUserId",
+			"value": "userId"
+		},
+		{
+			"key": "featUserId",
+			"value": ""
+		},
+		{
+			"key": "featFollowerId",
+			"value": ":followerId"
+		},
+		{
+			"key": "featLeaderId",
+			"value": ":leaderId"
+		},
+		{
+			"key": "featLeaderId",
+			"value": ""
+		},
+		{
+			"key": "variable_key",
+			"value": ""
+		},
+		{
+			"key": "featSubscriptionId",
+			"value": ":subscriptionId"
+		},
+		{
+			"key": "featSubscriptionId",
+			"value": ""
+		},
+		{
+			"key": "featEventId",
+			"value": ":eventId"
+		},
+		{
+			"key": "featEventId",
+			"value": ""
+		}
+	]
+}

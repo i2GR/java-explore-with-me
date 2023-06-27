@@ -77,7 +77,7 @@ CREATE TABLE subscriptions (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   follower_id BIGINT,
   leader_id BIGINT,
-  created TIMESTAMP (3) WITHOUT TIME ZONE,
+  last_view TIMESTAMP (3) WITHOUT TIME ZONE,
   CONSTRAINT fk_subscriptions_follower_to_users FOREIGN KEY (follower_id) REFERENCES users(id),
   CONSTRAINT fk_subscriptions_leader_to_users FOREIGN KEY (leader_id) REFERENCES users(id),
   CONSTRAINT fk_subscriptions_unq UNIQUE (follower_id, leader_id),

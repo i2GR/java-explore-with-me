@@ -8,6 +8,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
+import ru.practicum.ewm.app.dto.event.EventOutputShortDtoByFollower;
 import ru.practicum.ewm.common.utils.EventState;
 import ru.practicum.ewm.common.utils.EventStateAction;
 
@@ -46,6 +47,8 @@ public interface EventDtoMapper {
     EventOutputFullDto toFullDto(Event event);
 
     EventOutputShortDto toShortDto(Event event);
+
+    EventOutputShortDtoByFollower toDtoForFollower(Event event, boolean newEvent, Long subscriptionId);
 
     @InheritConfiguration
     @Mapping(target = "id", ignore = true)

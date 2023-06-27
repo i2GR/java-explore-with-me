@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ru.practicum.ewm.app.dto.subscription.SubscriptionOutputDto;
-import ru.practicum.ewm.app.event.EventRepository;
 import ru.practicum.ewm.app.subscription.SubscriptionRepository;
 import ru.practicum.ewm.app.subscription.model.Subscription;
 import ru.practicum.ewm.app.subscription.model.SubscriptionDtoMapper;
@@ -44,22 +43,23 @@ public class SubscriptionPrivateServiceImpl implements SubscriptionPrivateServic
     public SubscriptionOutputDto subscribeByFollowerToLeader(Long followerId, Long leaderId) {
         log.info("Private Service: adding subscribe from user id {} to user id{}", followerId, leaderId);
         Map<Long, User> users = checkAndRetrieveUsers(followerId, leaderId);
+        checkSubscriptionMode(users.get(leaderId));
         Subscription subscription = Subscription.builder()
                 .follower(users.get(followerId))
                 .leader(users.get(leaderId))
-                .created(LocalDateTime.now())
+                .lastView(LocalDateTime.now())
                 .build();
-        return mapper.toDto(saveOrThrowConflictException(subscription));
+        return mapper.toShortDto(saveOrThrowConflictException(subscription));
     }
 
     @Override
     public List<SubscriptionOutputDto> getAllSubscriptionsByFollower(Long followerId, Long from, Integer size) {
         log.info("Private Service: getting Subscriptions of user id {} from {} size {}", followerId, from, size);
         userRepo.getUserOrThrowNotFound(followerId);
-        Pageable page = PageRequest.of((int) (from / size), size, Sort.by("leader.name").descending());
+        Pageable page = PageRequest.of((int) (from / size), size, Sort.by("leader.name").ascending());
         return subscriptionRepo.findAllByFollowerId(followerId, page)
                 .stream()
-                .map(mapper::toDto)
+                .map(mapper::toShortDto)
                 .collect(Collectors.toList());
     }
 
@@ -68,18 +68,18 @@ public class SubscriptionPrivateServiceImpl implements SubscriptionPrivateServic
     public void unsubscribe(Long followerId, Long subscriptionId) {
         log.info("Private Service: cancelling subscription id {} from user id {}", subscriptionId,followerId);
         userRepo.getUserOrThrowNotFound(followerId);
-        try {
-            subscriptionRepo.deleteByFollowerIdAndId(followerId, subscriptionId);
-        } catch (DataIntegrityViolationException dive) {
-            throw new NotFoundException(String.format("User with id=%d has no given subscription", followerId));
+        if (subscriptionRepo.existsByFollowerIdAndId(followerId, subscriptionId)) {
+            subscriptionRepo.deleteById(subscriptionId);
+            return;
         }
+        throw new NotFoundException(String.format("User with id=%d has no given subscription", followerId));
     }
 
     private Subscription saveOrThrowConflictException(Subscription subscription) {
         try {
             return subscriptionRepo.save(subscription);
         } catch (DataIntegrityViolationException dive) {
-            throw new ConditionViolationException("category name clashes with present other category name");
+            throw new ConditionViolationException("forbidden to subscribe twice to given user");
         }
     }
 
@@ -95,6 +95,12 @@ public class SubscriptionPrivateServiceImpl implements SubscriptionPrivateServic
     private void checkUserExists(Long id, Map<Long, User> users, String userRef) {
         if (users.get(id) == null) {
             throw new NotFoundException(format("User (%s) with id=%d was not found", userRef, id));
+        }
+    }
+
+    private void checkSubscriptionMode(User user) {
+        if (!user.getSubscriptionsAllowed()) {
+            throw new ConditionViolationException("User does not allow to be subscribed");
         }
     }
 }

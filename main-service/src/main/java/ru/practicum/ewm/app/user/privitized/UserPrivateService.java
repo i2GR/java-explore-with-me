@@ -13,20 +13,21 @@ public interface UserPrivateService {
 
     /**
      * Получение информации о другом пользователе по идентификатору<p>
-     * @param userId id пользователя для отображения (поиска)
-     * @return DTO пользователя
+     * @param userId id пользователя, который осуществляет поиск
+     * @param anotherUserId id пользователя для отображения (поиска)
+     * @return DTO пользователя c числом подписчиков
      */
-    UserCommonFullDto getUser(Long userId);
+    SubscriptionCountedUserDto getUser(Long userId, Long anotherUserId);
 
     /**
      * Поиск пользователя по критериям<p>
+     * @param requesterId id пользователя, делающего запрос
      * @param userIds список id пользователей для отображения (поиска)
-     * @param popular флаг поиска пользователей с наибольшим силом подписчиков
      * @param from параметр пагинации - индекс первого элемента (нумерация начинается с 0)
      * @param size параметр пагинации - количество элементов для отображения
      * @return Список пользователей по критериям c подсчетом количества подписчиков (допускается получение пустого списка)
      */
-     List<SubscriptionCountedUserDto> getUserListByConditions(Long[] userIds, boolean popular, long from, int size);
+     List<SubscriptionCountedUserDto> getUserListByConditions(Long requesterId, Long[] userIds, long from, int size);
 
     /**
      * Изменение статуса возможности подписки<p>

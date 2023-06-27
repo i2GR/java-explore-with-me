@@ -5,6 +5,7 @@ import java.util.List;
 import ru.practicum.ewm.app.dto.event.EventInputDto;
 import ru.practicum.ewm.app.dto.event.EventOutputFullDto;
 import ru.practicum.ewm.app.dto.event.EventOutputShortDto;
+import ru.practicum.ewm.app.dto.event.EventOutputShortDtoByFollower;
 
 /**
  * Интерфейс сервис-слоя функционала относительно событий (приватный API)
@@ -60,6 +61,14 @@ public interface EventPrivateService {
      * - опубликованные<p>
      * - доступные для участия в них<p>
      */
-    public List<EventOutputShortDto> getAllEventsOfSubscribedLeaders(Long followerId, Long from, Integer size);
+    List<EventOutputShortDtoByFollower> getAllEventsOfSubscribedLeaders(Long followerId, Long from, Integer size);
 
+    /**
+     * Получение полной информации о событии по идентификатору (добавленного текущим пользователем)
+     * @param eventId идентификатор события
+     * @param leaderId идентификатор пользователя, на который подписан подписчик
+     * @param followerId идентификатор пользователя-подписчика
+     * @return Полный DTO события в случае, если событие принадлежит пользователю
+     */
+    EventOutputFullDto getEventOfLeaderByFollower(Long eventId, Long leaderId, Long followerId);
 }

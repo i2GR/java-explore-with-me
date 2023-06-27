@@ -1,6 +1,5 @@
 package ru.practicum.ewm.app.subscription.privatized;
 
-import ru.practicum.ewm.app.dto.subscription.SubscriptionOutputFullDto;
 import ru.practicum.ewm.app.dto.subscription.SubscriptionOutputDto;
 
 import java.util.List;

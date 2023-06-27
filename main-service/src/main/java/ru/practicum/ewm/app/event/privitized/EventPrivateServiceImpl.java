@@ -1,7 +1,10 @@
 package ru.practicum.ewm.app.event.privitized;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -13,6 +16,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ru.practicum.ewm.app.dto.event.EventOutputShortDtoByFollower;
+import ru.practicum.ewm.app.subscription.SubscriptionRepository;
+import ru.practicum.ewm.app.subscription.model.Subscription;
 import ru.practicum.ewm.common.exception.BadRequestException;
 import ru.practicum.ewm.common.exception.ConditionViolationException;
 import ru.practicum.ewm.common.utils.DateTimeDeserializer;
@@ -49,15 +55,19 @@ public class EventPrivateServiceImpl extends AbstractEventCommonService implemen
 
     private final UserRepository userRepo;
 
+    private final SubscriptionRepository subscriptionRepo;
+
     EventPrivateServiceImpl(EventRepository eventRepo,
                             CategoryRepository categoryRepo,
                             UserRepository userRepository,
                             PartRequestRepository requestRepo,
                             EventDtoMapper eventMapper,
                             StatsHttpClient statsClient,
-                            DateTimeDeserializer timeDeserializer) {
+                            DateTimeDeserializer timeDeserializer,
+                            SubscriptionRepository subscriptionRepo) {
         super(eventRepo, categoryRepo, requestRepo, eventMapper, statsClient, timeDeserializer);
         this.userRepo = userRepository;
+        this.subscriptionRepo = subscriptionRepo;
     }
 
     @Transactional
@@ -118,14 +128,53 @@ public class EventPrivateServiceImpl extends AbstractEventCommonService implemen
     }
 
     @Override
-    public List<EventOutputShortDto> getAllEventsOfSubscribedLeaders(Long followerId, Long from, Integer size) {
+    public List<EventOutputShortDtoByFollower> getAllEventsOfSubscribedLeaders(Long followerId, Long from, Integer size) {
         log.info("Private Service: getting events by followed users by follower user id {}", followerId);
         userRepo.getUserOrThrowNotFound(followerId);
-        Pageable page = PageRequest.of((int) (from / size), size, Sort.by("event.eventDate").descending());
-        return getEventRepo().getEventsByFollower(followerId, page)
+        Pageable page = PageRequest.of((int) (from / size), size, Sort.by("eventDate").ascending());
+        List<Event> eventList = getEventRepo().getEventsByFollower(followerId, page);
+        List<Subscription> subscriptions = new ArrayList<>();
+        assignConfirmedPartRequests(eventList);
+        assignViewsToEventList(MIN_TIME, MIN_TIME.minusYears(100), eventList);
+        Set<Long> leaderIdsWithUpdatedEvents = checkLeadersIdsWithUpdatesEvents(followerId, eventList, subscriptions);
+        Map<Long, Long> leaderIdToSubscriptionId = subscriptions
                 .stream()
-                .map(getEventMapper()::toShortDto)
+                .collect(Collectors.toMap(s -> s.getLeader().getId(), Subscription::getId));
+
+        //возвращение списка событий с пометкой, что событие является новым для пользователя-подписчика
+        //критерий: дата последнего просмотра подписок подписчиком и даты опубликования события
+        return eventList
+                .stream()
+                .map(e -> getEventMapper().toDtoForFollower(
+                        e, leaderIdsWithUpdatedEvents.contains(e.getInitiator().getId()),
+                        leaderIdToSubscriptionId.get(e.getInitiator().getId())))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    @Override
+    public EventOutputFullDto getEventOfLeaderByFollower(Long eventId, Long leaderId, Long followerId) {
+        log.info("Private Service: getting event id {} by follower id {} of leader id {}", eventId, followerId, leaderId);
+        Event event = getEventRepo().getEventOrThrowNotFound(eventId);
+        Subscription subscription = checkANdRetrieveSubscription(followerId, leaderId);
+        subscription.setLastView(LocalDateTime.now());
+        subscriptionRepo.save(subscription);
+        return getEventMapper().toFullDto(event);
+    }
+
+    private Subscription checkANdRetrieveSubscription(Long followerId, Long leaderId) {
+        List<Subscription> subs = subscriptionRepo.findAllByFollowerIdAndLeaderIdIn(followerId, List.of(leaderId));
+        User follower = userRepo.getUserOrThrowNotFound(followerId);
+        User leader = userRepo.getUserOrThrowNotFound(leaderId);
+        //установка последнего просмотра
+        if (subs.size() == 1) {
+            Subscription subscription = subs.get(0);
+            if (subscription.getLeader().getId().equals(leader.getId())
+                    &&
+                    subscription.getFollower().getId().equals(follower.getId()))
+                return subscription;
+        }
+        throw new BadRequestException("error getting subscription data");
     }
 
     private void checkAndSetMissedDefaults(EventInputDto dto) {
@@ -148,5 +197,25 @@ public class EventPrivateServiceImpl extends AbstractEventCommonService implemen
         }
         EventStateAction action = dto.getStateAction();
         if (action != null) event.setState(dto.getStateAction().getResult());
+    }
+
+    private Set<Long> checkLeadersIdsWithUpdatesEvents(Long followerId,
+                                                       List<Event> eventList,
+                                                       List<Subscription> subscriptions) {
+        List<Long> leaderIds = eventList
+                .stream()
+                .map(e -> e.getInitiator().getId())
+                .collect(Collectors.toList());
+        subscriptions.addAll(subscriptionRepo.findAllByFollowerIdAndLeaderIdIn(followerId, leaderIds));
+
+        Map<Long, LocalDateTime> subscriptionLeaderIdMapViewDate = subscriptions
+                .stream()
+                .collect(Collectors.toMap(s -> s.getLeader().getId(), Subscription::getLastView));
+
+        return eventList
+                .stream()
+                .filter(e -> subscriptionLeaderIdMapViewDate.get(e.getInitiator().getId()).isBefore(e.getPublishedOn()))
+                .map(e -> e.getInitiator().getId())
+                .collect(Collectors.toSet());
     }
 }

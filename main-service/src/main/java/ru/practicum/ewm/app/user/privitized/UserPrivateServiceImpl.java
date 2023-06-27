@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.app.dto.user.SubscriptionCountedUserDto;
@@ -31,29 +30,32 @@ public class UserPrivateServiceImpl implements UserPrivateService {
     private final UserDtoMapper userMapper;
 
     @Override
-    public UserCommonFullDto getUser(Long userId) {
-        log.info("Private Service Feature: receiving user by id {}", userId);
-        return userMapper.toFullDto(userRepo.getUserOrThrowNotFound(userId));
+    public SubscriptionCountedUserDto getUser(Long userId, Long anotherUserId) {
+        log.info("Private Service Feature: receiving user by id {}", anotherUserId);
+        //проверка, что запрашивающий пользователь существует
+        userRepo.getUserOrThrowNotFound(userId);
+        return userMapper.toCountedUserDto1(userRepo.getUserWithSubscriptionsCountOrThrowNotFound(anotherUserId));
     }
 
     @Override
-    public List<SubscriptionCountedUserDto> getUserListByConditions(Long[] userIds, boolean popular, long from, int size) {
-        log.info("Private Service Feature: receiving user list by paging from {} size {} with subscription sorting {}",
-                from, size, popular);
-        Pageable page = popular
-                ? PageRequest.of((int) (from / size), size, Sort.by("subscriptionCount").descending())
-                : PageRequest.of((int) (from / size), size);
+    public List<SubscriptionCountedUserDto> getUserListByConditions(Long userId,
+                                                                    Long[] userIds,
+                                                                    long from,
+                                                                    int size) {
+        log.info("Private Service Feature: receiving user list by paging from {} size {}", from, size);
+        userRepo.getUserOrThrowNotFound(userId);
+        Pageable page = PageRequest.of((int) (from / size), size);
         List<SubscriptionCountedUser> userList;
         if (userIds == null) {
             log.info("Private Service Feature: finding all user list");
             userList = userRepo.getAllUsersWithSubscriptionCount(page);
         } else {
             log.info("Private Service Feature: finding users by list of id {}", Arrays.toString(userIds));
-            userList = userRepo.getUsersByIdsWithSubscriptionCount(Arrays.asList(userIds), page);
+            userList = userRepo.getAllUsersByIdsWithSubscriptionCount(Arrays.asList(userIds), page);
         }
         log.info("received user list of size {}", userList.size());
         return userList.stream()
-                .map(u -> userMapper.toCountedUser(userMapper.toShortDto(u.getUser()), u.getSubscriptionCount()))
+                .map(userMapper::toCountedUserDto1)
                 .collect(Collectors.toList());
     }
 
@@ -61,7 +63,7 @@ public class UserPrivateServiceImpl implements UserPrivateService {
     @Override
     public UserCommonFullDto changeSubscriptionMode(Long userId, Long subjectId, boolean newStatus) {
         log.info("Private Service Feature: changing subscription mode of user id {} by user id {}", subjectId,   userId);
-        if (userId != subjectId) {
+        if (!userId.equals(subjectId)) {
             throw new ConditionViolationException("no access to change subscription mode");
         }
         User user = userRepo.getUserOrThrowNotFound(subjectId);

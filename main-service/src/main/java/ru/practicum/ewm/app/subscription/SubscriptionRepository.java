@@ -13,7 +13,9 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
 
     List<Subscription> findAllByFollowerId(Long followerId, Pageable page);
 
-    void deleteByFollowerIdAndId(Long followerId, Long subscriptionId);
+    boolean existsByFollowerIdAndId(Long followerId, Long subscriptionId);
+
+    List<Subscription> findAllByFollowerIdAndLeaderIdIn(Long followerId, List<Long> leaderIds);
 
     default Subscription getSubscriptionOrThrowNotFound(Long id) {
         return findById(id).orElseThrow(

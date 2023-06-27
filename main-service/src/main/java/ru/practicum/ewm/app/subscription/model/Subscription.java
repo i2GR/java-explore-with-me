@@ -43,6 +43,6 @@ public class Subscription {
     @JoinColumn(name = "leader_id")
     private User leader;
 
-    @Column(name = "created")
-    private LocalDateTime created;
+    @Column(name = "last_view")
+    private LocalDateTime lastView;
 }

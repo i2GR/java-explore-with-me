@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
+import ru.practicum.ewm.app.dto.event.EventOutputShortDtoByFollower;
 import ru.practicum.ewm.common.validation.OnCreate;
 import ru.practicum.ewm.common.validation.OnUpdate;
 
@@ -70,11 +71,20 @@ public class EventPrivateController {
     }
 
     @GetMapping(path = "/subscriptions")
-    public ResponseEntity<List<EventOutputShortDto>> getSubscriptionsEvent(
+    public ResponseEntity<List<EventOutputShortDtoByFollower>> getSubscriptionsEvent(
             @PathVariable(name = "userId") @Positive Long followerId,
             @RequestParam(name = "from", required = false, defaultValue = "0") @PositiveOrZero Long from,
             @RequestParam(name = "size", required = false, defaultValue = "10") @Positive Integer size) {
         log.info("Private API: get actual events from follower id {} from {} size {}", followerId, from, size);
         return new ResponseEntity<>(service.getAllEventsOfSubscribedLeaders(followerId, from, size), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/subscriptions/{leaderId}/{eventId}")
+    public ResponseEntity<EventOutputFullDto> getEventByFollower(
+            @PathVariable(name = "userId") @Positive Long followerId,
+            @PathVariable(name = "leaderId") @Positive Long leaderId,
+            @PathVariable(name = "eventId") @Positive Long eventId) {
+        log.info("Private API: get event id {} of leader id {} by follower id {}", eventId, leaderId, followerId);
+        return new ResponseEntity<>(service.getEventOfLeaderByFollower(eventId, leaderId, followerId), HttpStatus.OK);
     }
 }
