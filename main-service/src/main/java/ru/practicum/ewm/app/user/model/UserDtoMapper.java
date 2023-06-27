@@ -2,6 +2,7 @@ package ru.practicum.ewm.app.user.model;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import ru.practicum.ewm.app.dto.user.SubscriptionCountedUserDto;
 import ru.practicum.ewm.app.dto.user.UserCommonFullDto;
 import ru.practicum.ewm.app.dto.user.UserOutputShortDto;
 
@@ -17,4 +18,6 @@ public interface UserDtoMapper {
     UserCommonFullDto toFullDto(User user);
 
     UserOutputShortDto toShortDto(User user);
+
+    SubscriptionCountedUserDto toCountedUser(UserOutputShortDto dto, Long count);
 }

@@ -11,6 +11,7 @@ CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     email varchar(254) UNIQUE NOT NULL,
     name varchar(250) UNIQUE NOT NULL,
+    subscriptions_allowed BOOLEAN NOT NULL,
     CONSTRAINT chk_users_email_min CHECK(length(email) >= 6),
     CONSTRAINT chk_users_name_min CHECK(length(name) >= 2)
 );
@@ -74,8 +75,8 @@ CREATE TABLE compilations_events (
 
 CREATE TABLE subscriptions (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  follower_id BIGINT REFERENCES users (id),
-  leader_id BIGINT REFERENCES users (id),
+  follower_id BIGINT,
+  leader_id BIGINT,
   created TIMESTAMP (3) WITHOUT TIME ZONE,
   CONSTRAINT fk_subscriptions_follower_to_users FOREIGN KEY (follower_id) REFERENCES users(id),
   CONSTRAINT fk_subscriptions_leader_to_users FOREIGN KEY (leader_id) REFERENCES users(id),

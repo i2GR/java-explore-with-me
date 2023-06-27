@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.practicum.ewm.common.utils.EventState;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,9 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
 
 /**
  * модель-сущность пользователя<p>
@@ -27,24 +24,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"id"}, callSuper = false)
-@Entity
-@Table(name = "users")
-public class User {
+public class SubscriptionCountedUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private User user;
 
-    @Column(unique = true)
-    private String email;
-
-    private String name;
-
-    @Column(name = "subscriptions_allowed")
-    private Boolean subscriptionsAllowed;
-
-    @PrePersist
-    void setSubscriptionsAllowed() {
-        if (subscriptionsAllowed == null) setSubscriptionsAllowed(false);
-    }
+    private Long subscriptionCount;
 }

@@ -33,4 +33,7 @@ public class UserCommonFullDto {
     @NotBlank(message = "user name required", groups = {OnCreate.class, OnUpdate.class})
     @Size(min = 2, max = 250, groups = {OnCreate.class, OnUpdate.class})
     private String name;
+
+    @Builder.Default
+    private boolean subscriptionsAllowed = false;
 }
