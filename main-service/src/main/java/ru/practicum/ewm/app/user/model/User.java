@@ -41,7 +41,7 @@ public class User {
     private Boolean subscriptionsAllowed;
 
     @PrePersist
-    void setSubscriptionsAllowed() {
+    public void setSubscriptionsAllowed() {
         if (subscriptionsAllowed == null) setSubscriptionsAllowed(false);
     }
 }

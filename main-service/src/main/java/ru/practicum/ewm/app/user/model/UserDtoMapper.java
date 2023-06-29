@@ -19,7 +19,5 @@ public interface UserDtoMapper {
 
     UserOutputShortDto toShortDto(User user);
 
-    SubscriptionCountedUserDto toCountedUserDto(UserOutputShortDto dto, Long count);
-
-    SubscriptionCountedUserDto toCountedUserDto1(SubscriptionCountedUser countedUser);
+    SubscriptionCountedUserDto toCountedUserDto(SubscriptionCountedUser countedUser);
 }

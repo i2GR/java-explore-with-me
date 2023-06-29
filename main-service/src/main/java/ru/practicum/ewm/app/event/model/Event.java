@@ -96,7 +96,7 @@ public class Event {
 
     @PrePersist
     @PreUpdate
-    void setTimestamps() {
+    public void setTimestamps() {
         if (createdOn == null) setCreatedOn(LocalDateTime.now());
         if (state == EventState.PUBLISHED) setPublishedOn(LocalDateTime.now());
     }

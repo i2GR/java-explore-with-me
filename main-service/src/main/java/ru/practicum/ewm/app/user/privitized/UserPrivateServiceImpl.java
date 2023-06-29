@@ -34,7 +34,7 @@ public class UserPrivateServiceImpl implements UserPrivateService {
         log.info("Private Service Feature: receiving user by id {}", anotherUserId);
         //проверка, что запрашивающий пользователь существует
         userRepo.getUserOrThrowNotFound(userId);
-        return userMapper.toCountedUserDto1(userRepo.getUserWithSubscriptionsCountOrThrowNotFound(anotherUserId));
+        return userMapper.toCountedUserDto(userRepo.getUserWithSubscriptionsCountOrThrowNotFound(anotherUserId));
     }
 
     @Override
@@ -55,7 +55,7 @@ public class UserPrivateServiceImpl implements UserPrivateService {
         }
         log.info("received user list of size {}", userList.size());
         return userList.stream()
-                .map(userMapper::toCountedUserDto1)
+                .map(userMapper::toCountedUserDto)
                 .collect(Collectors.toList());
     }
 
