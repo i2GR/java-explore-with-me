@@ -1,6 +1,6 @@
 package ru.practicum.ewm.app.compilation.publish;
 
-import ru.practicum.ewm.app.dto.CompilationOutputDto;
+import ru.practicum.ewm.app.dto.compilation.CompilationOutputDto;
 
 import java.util.List;
 

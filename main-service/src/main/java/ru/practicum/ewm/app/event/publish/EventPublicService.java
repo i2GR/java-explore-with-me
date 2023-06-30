@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ru.practicum.ewm.app.dto.EventOutputFullDto;
-import ru.practicum.ewm.app.dto.EventOutputShortDto;
+import ru.practicum.ewm.app.dto.event.EventOutputFullDto;
+import ru.practicum.ewm.app.dto.event.EventOutputShortDto;
 
 /**
  * Интерфейс сервис-слоя публичного функционала относительно событий

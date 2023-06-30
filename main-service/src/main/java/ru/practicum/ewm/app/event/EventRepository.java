@@ -7,6 +7,8 @@ import static java.lang.String.format;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import ru.practicum.ewm.common.exception.NotFoundException;
 import ru.practicum.ewm.common.utils.EventState;
 import ru.practicum.ewm.app.event.model.Event;
@@ -57,6 +59,14 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             LocalDateTime end,
             EventState state,
             Pageable pageable);
+
+    @Query(value = "SELECT e "
+            + "FROM Event e "
+            + "INNER JOIN User u ON u.id = e.initiator.id "
+            + "INNER JOIN Subscription s ON s.leader.id = u.id "
+            + "WHERE s.follower.id = :followerId AND e.state = 'PUBLISHED' "
+            + "ORDER BY e.eventDate ASC")
+    List<Event> getEventsByFollower(@Param("followerId") Long followerId, Pageable page);
 
     default Event getEventOrThrowNotFound(Long id) {
         return findById(id).orElseThrow(

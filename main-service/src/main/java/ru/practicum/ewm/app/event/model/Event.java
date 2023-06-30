@@ -38,7 +38,7 @@ import javax.persistence.PreUpdate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"id"}, callSuper = false)
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "events")
 public class Event {
@@ -96,7 +96,7 @@ public class Event {
 
     @PrePersist
     @PreUpdate
-    void setTimestamps() {
+    public void setTimestamps() {
         if (createdOn == null) setCreatedOn(LocalDateTime.now());
         if (state == EventState.PUBLISHED) setPublishedOn(LocalDateTime.now());
     }

@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ru.practicum.ewm.app.dto.EventOutputFullDto;
-import ru.practicum.ewm.app.dto.EventOutputShortDto;
+import ru.practicum.ewm.app.dto.event.EventOutputFullDto;
+import ru.practicum.ewm.app.dto.event.EventOutputShortDto;
 
 @Slf4j
 @RequiredArgsConstructor

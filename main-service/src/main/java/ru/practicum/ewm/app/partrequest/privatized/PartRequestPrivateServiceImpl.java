@@ -19,9 +19,9 @@ import ru.practicum.ewm.common.exception.ConditionViolationException;
 import ru.practicum.ewm.common.exception.NotFoundException;
 import ru.practicum.ewm.common.utils.PartRequestStatus;
 import ru.practicum.ewm.common.utils.EventState;
-import ru.practicum.ewm.app.dto.PartRequestStatusUpdateRequest;
-import ru.practicum.ewm.app.dto.PartRequestStatusUpdateResult;
-import ru.practicum.ewm.app.dto.PartRequestDto;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestStatusUpdateRequest;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestStatusUpdateResult;
+import ru.practicum.ewm.app.dto.partrequest.PartRequestDto;
 import ru.practicum.ewm.app.event.EventRepository;
 import ru.practicum.ewm.app.event.model.Event;
 import ru.practicum.ewm.app.partrequest.PartRequestRepository;
@@ -77,7 +77,7 @@ public class PartRequestPrivateServiceImpl implements PartRequestPrivateService 
     @Transactional
     @Override
     public PartRequestDto cancelPartRequest(Long userId, Long requestId) {
-        log.info("Private Service: cancelling PartRequest id {} from user id {}", requestRepo, userId);
+        log.info("Private Service: cancelling PartRequest id {} from user id {}", requestId, userId);
         User participant = userRepo.getUserOrThrowNotFound(userId);
         PartRequest request = requestRepo.getPartRequestOrThrowNotFound(requestId);
         checkParticipantOfRequest(participant, request);
